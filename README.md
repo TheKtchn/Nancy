@@ -1,1 +1,8 @@
-Just testing to see if this works
+### Project Title:
+## Nancy
+
+_Finance managment made easy_
+
+Files
+Program overview
+
