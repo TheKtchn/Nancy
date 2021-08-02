@@ -1,3 +1,3 @@
 import account
 
-checks = account.Account()
+pass
