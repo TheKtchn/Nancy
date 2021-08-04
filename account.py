@@ -4,8 +4,8 @@ import pprint
 
 class Account:
     def __init__(self) -> None:
-        self.name = input('What is your name? ')
-        self.username = input('What is your username? ')
+        self.username = input('What is your username(unique ID)? ')
+        self.name = None        
         self.user_id_data()
         self.data = self.user_account_data()
 
@@ -15,12 +15,14 @@ class Account:
             id = open(f"user_{self.username}.txt", 'r')
         except FileNotFoundError:
             id = open(f"user_{self.username}.txt", 'w')
+            print("Creating your account...\n")
+            self.name = input('What is your name? ')
             id.write(f"{self.name} ")
             id.write(f"{self.username}")
             print(f"ID created for {self.username}.")
             id.close()
         else:
-            print("Account already exists. Retrieving data\n")
+            print("Account sign-in complete. Retrieving data\n")
             acct = id.readlines()
             acct = acct[0].split(' ')[:-1]
             self.name = f"{acct[0]} {acct[1]}"
@@ -32,9 +34,10 @@ class Account:
             data = pandas.read_csv(f"user_{self.username}_data.csv", index_col=[0, 1])
         except FileNotFoundError:
             print("Creating your wallet(s). Enter relevant info.\n")
-            wallet_info = [[], []] #wallet info contains names of wallets and sub-wallets
-            wallet_amounts = []
-            while True:
+            wallet_info = [[], []] # wallet info contains names of wallets and sub-wallets
+            wallet_amounts = [] # wallet amounts contains amount in each wallets
+
+            while True: # wallets
                 wallet_names = []
                 wallet_name = input("Enter the name of the wallet(q to end): ").lower().replace(" ", "_")
                 if wallet_name == 'q':
@@ -42,6 +45,8 @@ class Account:
                 wallet_names.append(wallet_name)
                 sub_wallet_names = []
                 sub_wallet_amounts = []
+
+                # sub_wallets
                 if input("Does the wallet have sub-wallets(y/n)? ") == 'y':
                     while True:
                         sub_wallet_name = input("Enter the name of the sub-wallet(q to end): ").lower().replace(" ", "_")
@@ -51,12 +56,27 @@ class Account:
                             break
                         sub_wallet_names.append(sub_wallet_name)
                         wallet_names.append(wallet_name)
-                        
-                        sub_wallet_amount = float(input("Enter the amount in the sub-wallet: "))
-                        sub_wallet_amounts.append(sub_wallet_amount)
-                else:
+                        while True:
+                            try:
+                                sub_wallet_amount = float(input("Enter the amount in the sub-wallet: "))
+                            except ValueError:
+                                print("Value entered is not a number.\n") 
+                            else:
+                                sub_wallet_amounts.append(sub_wallet_amount)
+                                break
+
+                # wallet without sub_wallet
+                else: 
                     sub_wallet_names.append("total")
-                    sub_wallet_amounts.append(input("Enter the amount in the wallet: "))
+                    while True:
+                            try:
+                                wallet_amount = float(input("Enter the amount in the wallet: "))
+                            except ValueError:
+                                print("Value entered is not a number.\n") 
+                            else:
+                                sub_wallet_amounts.append(wallet_amount)
+                                break
+                                
 
                 wallet_info[0] += wallet_names
                 wallet_info[1] += sub_wallet_names
@@ -72,9 +92,10 @@ class Account:
             print(data)
             print("\n\n")
             
-
         return data
+
     def formula(self) -> None:
+        wllts = list(self.data.index.values)
         try:
             with open(f"user_{self.username}_formulae.json") as formulae:
                 f = json.load(formulae)
@@ -85,10 +106,12 @@ class Account:
             try:
                 formula_name = input("Enter the name of your formula: ")
                 formula = f[formula_name]
+            
+            # formula creator
             except KeyError:
                 print("Formula doesn't exist. Creating a new one.\n")
                 formula_variables = {}
-                for wllt, s_wllt in self.data.index.values:
+                for wllt, s_wllt in wllts:
                     formula_variables.setdefault(wllt, []).append(s_wllt)
 
                 print("wallet: [sub_wallets]")
@@ -100,15 +123,27 @@ class Account:
                 print("variable could be wallet(wallet:subwallet) or value")
                 print("operation is arithmetic\n")
 
-                formula = input("Enter the formula: ")
+                # checks if formula entered contains valid wallets
+                while True:
+                    formula = input("Enter the formula: ")
+                    formula = formula.split(" ")
+                    print(formula)
+                    complete = True
+                    for i in range(0, len(formula), 2):
+                        var = tuple(formula[i].split(":"))
+                        if var not in wllts:
+                            complete = False
+                            print("Wrong formula entered.\n")
+                            break
+                    if complete:
+                        break
+                    
                 with open(f"user_{self.username}_formulae.json", "w") as formulae:
                     f[formula_name] = formula
                     json.dump(f, formulae)
-                # cash_in_hand:total * 2 + savings:cowrywise
+            
+            # formula calculator
             else:
-                pass
-            finally:
-                formula = formula.split(" ")
                 for i in range(0, len(formula), 2):
                     var = formula[i].split(":")
                     if len(var) == 2:
