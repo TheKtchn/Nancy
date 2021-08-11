@@ -1,3 +1,4 @@
 import account
 
-pass
+checks = account.Account()
+checks.formula()
