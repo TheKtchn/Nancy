@@ -27,6 +27,7 @@ class Account:
             acct = acct[0].split(' ')[:-1]
             self.name = f"{acct[0]} {acct[1]}"
             id.close()
+        return self.name, self.username
             
     # User wallets creation and management
     def user_account_data(self) -> pandas.DataFrame:
@@ -103,10 +104,9 @@ class Account:
             with open(f"user_{self.username}_formulae.json", "w") as formulae:
                 json.dump({}, formulae)
         else:
+            formula_name = input("Enter the name of your formula: ")
             try:
-                formula_name = input("Enter the name of your formula: ")
-                formula = f[formula_name]
-            
+                formula = f[formula_name]            
             # formula creator
             except KeyError:
                 print("Formula doesn't exist. Creating a new one.\n")
@@ -137,7 +137,7 @@ class Account:
                             break
                     if complete:
                         break
-                    
+                
                 with open(f"user_{self.username}_formulae.json", "w") as formulae:
                     f[formula_name] = formula
                     json.dump(f, formulae)
@@ -153,7 +153,3 @@ class Account:
                 for i in formula:
                     formula_str += i
                 print(eval(formula_str))
-
-
-checks = Account()
-checks.formula()
