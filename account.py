@@ -153,4 +153,3 @@ class Account:
                 for i in formula:
                     formula_str += i
                 print(eval(formula_str))
-
