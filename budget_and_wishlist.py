@@ -18,14 +18,9 @@ class List:
         return data
 
     def add_list_item(self):
-        frames = {
-            "item": [],
-            "description": [],
-            "tags": [],
-            "cost": [],
-            "is_repeated": [],
-            "repeat_info": []
-        }
+        frames = {}
+        for i in list(self.moneydata.columns)[1:]:
+            frames[i] = []
 
         while True:
             item = input("Enter the item(q to end): ")
@@ -50,17 +45,7 @@ class List:
             frames["repeat_info"].append(repeat_information)
 
         df = pandas.DataFrame(frames)
-        self.moneydata = pandas.concat(
-            [self.moneydata, df],
-            axis=0,
-            join="outer", 
-            ignore_index=False, 
-            keys=None, 
-            levels=None, 
-            names=None, 
-            verify_integrity=False, 
-            copy=True)
-        
+        self.moneydata = pandas.concat([self.moneydata, df])
         self.moneydata.to_csv(f"user_{self.username}_{self.listtype}_list.csv")
 
 class BudgetList(List):
@@ -78,6 +63,4 @@ username = "victor17"
 wisher = WishList(username)
 budgeter = BudgetList(username)
 
-wisher.add_list_item()
-budgeter.add_list_item()
     
