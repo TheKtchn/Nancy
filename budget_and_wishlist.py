@@ -13,6 +13,7 @@ class List:
         except FileNotFoundError:
             data = pandas.DataFrame([], columns=["item", "tags", "description", "cost", "is_repeated", "repeat_info"])
             data.to_csv(f"user_{self.username}_{self.listtype}_list.csv")
+            print(f"Created a {self.listtype} file for user {self.username}!")
         else:
             print(data)
         return data
@@ -62,5 +63,3 @@ class WishList(List):
 username = "victor17"
 wisher = WishList(username)
 budgeter = BudgetList(username)
-
-    
