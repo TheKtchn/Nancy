@@ -142,23 +142,65 @@ class Account:
         print("When entering wallet and sub-wallet put a colon between them.")
         removal = input("Enter here: ")
         if len(removal.split(":")) == 2:
-            pass
+            wallet_info[removal.split(":")[0]].drop(removal.split(":")[1], inplace=True)
         else:
             if removal in list(wllt_names.keys()):
-                pass
+                # check if name entered is a wallet, remove all wallet info and perform necessary transfer
+                print("Deleting entire wallet")
+                wallet_info.pop(removal)
             else:
-                wllt_with_swllt = []
+                wllts_with_swllt = []
                 for i, j in wllt_names.items():
                     if removal in j:
-                        wllt_with_swllt.append(i)
-                if len(wllt_with_swllt) == 1:
-                    pass
+                        wllts_with_swllt.append(i)
+                if len(wllts_with_swllt) == 1:
+                    # check if sub-wallet entered has no conflicts, if so remove and perform necessary transfer
+                    wallet_info[wllts_with_swllt[0]].drop(removal, inplace=True)
                 else:
-                    pass
+                    # check if sub-wallet entered has conflicts, if so remove and perform necessary transfer
+                    pprint.pp({wllts_with_swllt.index(value): value for value in wllts_with_swllt})
+                    wallet_info[wllts_with_swllt[input("Enter the index of the wallet: ")]].drop(removal, inplace=True)
+
+        wllt_info = [[], []]
+        wllt_values = []
+        pprint.pp(wallet_info)
+        for key, value in wallet_info.items():
+            wllt_info[0] += list(itertools.repeat(key, len(list(value.index.values))))
+            wllt_info[1] += list(value.index.values)
+            wllt_values += list(value["amount"])
+        
+        tupls = list(zip(*wllt_info))
+        index = pandas.MultiIndex.from_tuples(tupls, names=['wallet', "sub_wallet"])
+        self.data = pandas.DataFrame(wllt_values, index=index, columns=["amount"])
+        self.data.to_csv(f"user_{self.username}_wallets.csv")
             
 
-    def wallet_transfer(self, fro, to=None):
-        pass
+    def wallet_transfer(self):
+        # wallet validator should be a separate function
+        wllt_names = {}
+        for wllt, s_wllt in list(self.data.index.values):
+            wllt_names.setdefault(wllt, []).append(s_wllt)
+
+        print()
+        pprint.pp(wllt_names)
+        print()
+
+        print("Enter the name of wallet and sub-wallet seperated by a colon.")
+        print("If transfer is to or from another entity, enter other and the entity's name seperated by a colon.")
+        fro = input("from: ")
+        to = input("to: ")
+        while True:
+            try:
+                amount = float(input("Enter the amount transferred: "))
+            except ValueError:
+                print("Value entered is not a number.\n") 
+            else:
+                self.data.loc[fro.split(":")[0], fro.split(":")[1]] = self.data.loc[fro.split(":")[0], fro.split(":")[1]] - amount
+                self.data.loc[to.split(":")[0], to.split(":")[1]] = self.data.loc[to.split(":")[0], to.split(":")[1]] + amount
+                self.data.to_csv(f"user_{self.username}_wallets.csv")
+                print("Transfer complete!")
+                break
+
 
 
     def add_or_sub_formula(self) -> None:
@@ -216,4 +258,4 @@ class Account:
             print(eval(formula_str))
 
 checks = Account()
-checks.remove_wallet()
+checks.wallet_transfer()
