@@ -1,16 +1,21 @@
+import itertools
 import json
 import pandas
 import pprint
-
+ 
 class Account:
     def __init__(self) -> None:
+        """Initialises files relating to wallet information"""
+
         self.username = input('What is your username(unique ID)? ')
         self.name = None        
-        self.user_id_data()
-        self.data = self.user_account_data()
+        self.id = self.user_id_data()
+        self.data, self.formulae = self.user_account_data()
 
     # User account ID creation and management
     def user_id_data(self) -> None:
+        """Manages user ID information"""
+        
         try:
             id = open(f"user_{self.username}.txt", 'r')
         except FileNotFoundError:
@@ -29,87 +34,221 @@ class Account:
             id.close()
         return self.name, self.username
             
-    # User wallets creation and management
+    # User account data creation and management
     def user_account_data(self) -> pandas.DataFrame:
+        """Checks for presence of wallets and formulae files, if not present creates the necessary files"""
+
+        # wallet data file initialiser
         try:
-            data = pandas.read_csv(f"user_{self.username}_data.csv", index_col=[0, 1])
+            data = pandas.DataFrame(pandas.read_csv(f"user_{self.username}_wallets.csv", index_col=[0, 1]))
         except FileNotFoundError:
-            print("Creating your wallet(s). Enter relevant info.\n")
-            wallet_info = [[], []] # wallet info contains names of wallets and sub-wallets
-            wallet_amounts = [] # wallet amounts contains amount in each wallets
+            data = pandas.DataFrame(columns=["wallet", "sub_wallet", "amount"])
+            data.to_csv(f"user_{self.username}_wallets.csv")
+            print(f"Created a wallet file for user {self.username}!")
+        else:
+            print("\nAccount ID details retrieved.")
 
-            while True: # wallets
-                wallet_names = []
-                wallet_name = input("Enter the name of the wallet(q to end): ").lower().replace(" ", "_")
-                if wallet_name == 'q':
-                    break
-                wallet_names.append(wallet_name)
-                sub_wallet_names = []
-                sub_wallet_amounts = []
+        # formulae data file initialiser
+        try:
+            with open(f"user_{self.username}_formulae.json") as file:
+                formulae = json.load(file)
+        except FileNotFoundError:
+            with open(f"user_{self.username}_formulae.json", "w") as file:
+                formulae = {}
+                json.dump(formulae, file)
+        else:
+            print("\nFormulae retrieved.")
+            
+        return (data, formulae)
 
-                # sub_wallets
+    def add_wallet(self):
+        """Manages the creation of wallet and sub-wallets and additions to existing wallets."""
+
+        wllt_names = {}
+        # retrieves wallet and sub-wallet names
+        for wllt, s_wllt in list(self.data.index.values):
+            wllt_names.setdefault(wllt, []).append(s_wllt)
+
+        # stores each wallet with its sub-wallets as its own dataframe for easy access
+        wallet_info = {wllt_name: self.data.loc[wllt_name] for wllt_name in list(wllt_names.keys())}
+
+        while True:
+            wallet_name = input("Enter the name of the wallet(q to end): ").lower().replace(" ", "_")
+            if wallet_name == "q":
+                print("Wallet(s) successfully created!")
+                break
+
+            # if wallet is already created
+            elif wallet_name in wllt_names:
+                print(f"Wallet already created!\nWallets created are {wllt_names}")
+
+                # manages and resolves wallet name conflicts
+                if input("Do you want to add a new sub-wallet(y/n): ") == 'y':
+                    while True:
+                        sub_wallet_name = input("Enter the name of the new sub-wallet(q to end): ").lower().replace(" ", "_")
+                        if (sub_wallet_name == 'q'):
+                            break
+                        else:
+                            if sub_wallet_name in wllt_names[wallet_name]:
+                                print("Sub-wallet already exists!")
+                            else:
+                                wllt_names[wallet_name].append(sub_wallet_name)
+                                while True:
+                                    try:
+                                        sub_wallet_amount = float(input("Enter the amount in the sub-wallet: "))
+                                    except ValueError:
+                                        print("Value entered is not a number.\n") 
+                                    else:
+                                        wallet_info[wallet_name].loc[sub_wallet_name] = sub_wallet_amount
+                                        break
+
+            # creates a new wallet if no conflicts in wallet names are found
+            else:
+                wallet_info[wallet_name] = pandas.DataFrame(columns=["sub_wallet", "amount"])
+                wallet_info[wallet_name].set_index("sub_wallet", inplace=True)
+                wllt_names[wallet_name] = []
                 if input("Does the wallet have sub-wallets(y/n)? ") == 'y':
                     while True:
                         sub_wallet_name = input("Enter the name of the sub-wallet(q to end): ").lower().replace(" ", "_")
                         if (sub_wallet_name == 'q'):
-                            sub_wallet_names.append("total")
-                            sub_wallet_amounts.append(sum(sub_wallet_amounts))
                             break
-                        sub_wallet_names.append(sub_wallet_name)
-                        wallet_names.append(wallet_name)
+                        wllt_names[wallet_name].append(sub_wallet_name)
                         while True:
                             try:
                                 sub_wallet_amount = float(input("Enter the amount in the sub-wallet: "))
                             except ValueError:
-                                print("Value entered is not a number.\n") 
+                                print("Value entered is not a number.\n")
                             else:
-                                sub_wallet_amounts.append(sub_wallet_amount)
+                                wallet_info[wallet_name].loc[sub_wallet_name] = sub_wallet_amount
                                 break
-
-                # wallet without sub_wallet
                 else: 
-                    sub_wallet_names.append("total")
                     while True:
-                            try:
-                                wallet_amount = float(input("Enter the amount in the wallet: "))
-                            except ValueError:
-                                print("Value entered is not a number.\n") 
-                            else:
-                                sub_wallet_amounts.append(wallet_amount)
-                                break
-                                
+                        try:
+                            sub_wallet_amount = float(input("Enter the amount in the wallet: "))
+                        except ValueError:
+                            print("Value entered is not a number.\n") 
+                        else:
+                            wallet_info[wallet_name].loc[f"_{wallet_name}_"] = sub_wallet_amount
+                            break
 
-                wallet_info[0] += wallet_names
-                wallet_info[1] += sub_wallet_names
-                wallet_amounts += sub_wallet_amounts
+        # parses all the wallet dataframes and stores it back in the wallet file        
+        wllt_info = [[], []]
+        wllt_values = []
+        pprint.pp(wallet_info)
+        for key, value in wallet_info.items():
+            wllt_info[0] += list(itertools.repeat(key, len(list(value.index.values))))
+            wllt_info[1] += list(value.index.values)
+            wllt_values += list(value["amount"])
+        
+        tupls = list(zip(*wllt_info))
+        index = pandas.MultiIndex.from_tuples(tupls, names=['wallet', "sub_wallet"])
+        self.data = pandas.DataFrame(wllt_values, index=index, columns=["amount"])
+        self.data.to_csv(f"user_{self.username}_wallets.csv")
 
-            if len(wallet_info[0]) > 0:
-                tuples = list(zip(*wallet_info))  
-                index = pandas.MultiIndex.from_tuples(tuples=tuples, names=["wallet", "sub_wallet"])
-                data = pandas.DataFrame(wallet_amounts, index=index, columns=["amount"])
-                print(data)
-                data.to_csv(f"user_{self.username}_data.csv")
+    def remove_wallet(self):
+        """Manages the deletion of wallets and/or sub-wallets"""
+
+        wllt_names = {}
+        for wllt, s_wllt in list(self.data.index.values):
+            wllt_names.setdefault(wllt, []).append(s_wllt)
+        wallet_info = {wllt_name: self.data.loc[wllt_name] for wllt_name in list(wllt_names.keys())}
+
+        print()
+        pprint.pp(wllt_names)
+        print()
+        print("Enter the name of the wallet and/or sub-wallet to be removed.")
+        print("When entering wallet and sub-wallet put a colon between them.")
+        removal = input("Enter here: ")
+        if len(removal.split(":")) == 2:
+            wallet_info[removal.split(":")[0]].drop(removal.split(":")[1], inplace=True)
         else:
-            print(data)
-            print("\n\n")
+            if removal in list(wllt_names.keys()):
+                # check if name entered is a wallet, remove all wallet info and perform necessary transfer
+                self.wallet_transfer()
+                print("Deleting entire wallet")
+                wallet_info.pop(removal)
+            else:
+                wllts_with_swllt = []
+                for i, j in wllt_names.items():
+                    if removal in j:
+                        wllts_with_swllt.append(i)
+                if len(wllts_with_swllt) == 1:
+                    # check if sub-wallet entered has no conflicts, if so remove and perform necessary transfer
+                    wallet_info[wllts_with_swllt[0]].drop(removal, inplace=True)
+                else:
+                    # check if sub-wallet entered has conflicts, if so remove and perform necessary transfer
+                    pprint.pp({wllts_with_swllt.index(value): value for value in wllts_with_swllt})
+                    indx = input("Enter the index of the wallet: ")
+                    self.wallet_transfer()
+                    wallet_info[wllts_with_swllt[indx]].drop(removal, inplace=True)
+
+        wllt_info = [[], []]
+        wllt_values = []
+        pprint.pp(wallet_info)
+        for key, value in wallet_info.items():
+            wllt_info[0] += list(itertools.repeat(key, len(list(value.index.values))))
+            wllt_info[1] += list(value.index.values)
+            wllt_values += list(value["amount"])
+        
+        tupls = list(zip(*wllt_info))
+        index = pandas.MultiIndex.from_tuples(tupls, names=['wallet', "sub_wallet"])
+        self.data = pandas.DataFrame(wllt_values, index=index, columns=["amount"])
+        self.data.to_csv(f"user_{self.username}_wallets.csv")
             
-        return data
 
-    def formula(self) -> None:
-        wllts = list(self.data.index.values)
-        try:
-            with open(f"user_{self.username}_formulae.json") as formulae:
-                f = json.load(formulae)
-        except FileNotFoundError:
-            with open(f"user_{self.username}_formulae.json", "w") as formulae:
-                json.dump({}, formulae)
-        else:
-            formula_name = input("Enter the name of your formula: ")
+    def wallet_transfer(self):
+        """Ensure seamless transfer between wallets themselves and from other sources"""
+
+        wllt_names = {}
+        for wllt, s_wllt in list(self.data.index.values):
+            wllt_names.setdefault(wllt, []).append(s_wllt)
+
+        print()
+        pprint.pp(wllt_names)
+        print()
+
+        print("Enter the name of wallet and sub-wallet seperated by a colon.")
+        print("If transfer is to or from another entity, enter other and the entity's name seperated by a colon.")
+        fro = input("from: ")
+        to = input("to: ")
+
+        ## wallet validator
+
+        while True:
             try:
-                formula = f[formula_name]            
+                amount = float(input("Enter the amount transferred: "))
+            except ValueError:
+                print("Value entered is not a number.\n") 
+            else:
+                if fro[:5] != "other":
+                    self.data.loc[fro.split(":")[0], fro.split(":")[1]] = self.data.loc[fro.split(":")[0], fro.split(":")[1]] - amount
+                if to[:5] != "other":
+                    self.data.loc[to.split(":")[0], to.split(":")[1]] = self.data.loc[to.split(":")[0], to.split(":")[1]] + amount
+                self.data.to_csv(f"user_{self.username}_wallets.csv")
+                print("Transfer complete!")
+                break
+
+
+    def add_or_sub_formula(self) -> None:
+        """Creates a special wallet that calculates the value of the a list of wallet listed in the formula"""
+
+        # Make sure formula addition and deletion is properly implemented
+        formula_name = input("Enter the name of your formula(to delete put d- before name): ")
+        if formula_name[:2] == 'd-':
+            try:
+                self.formulae.pop(formula_name[2:])
+                with open(f"user_{self.username}_formulae.json", "w") as file:
+                    json.dump(self.formulae, file)
+            except KeyError:
+                print("Formula does not exist!")
+        else:
+            try:
+                formula = self.formulae[formula_name]         
             # formula creator
             except KeyError:
                 print("Formula doesn't exist. Creating a new one.\n")
+                # wallet names getter
+                wllts = list(self.data.index.values)
                 formula_variables = {}
                 for wllt, s_wllt in wllts:
                     formula_variables.setdefault(wllt, []).append(s_wllt)
@@ -118,9 +257,10 @@ class Account:
                 pprint.pp(formula_variables)
                 print("\n\n")
 
-                print("Formula format:")
+                print("Formula format instructions:")
                 print("variable operation variable etc.")
-                print("variable could be wallet(wallet:subwallet) or value")
+                print("variable could be wallet(wallet:subwallet)")
+                print("ensure a space is placed between any variables and operations")
                 print("operation is arithmetic\n")
 
                 # checks if formula entered contains valid wallets
@@ -138,11 +278,11 @@ class Account:
                     if complete:
                         break
                 
-                with open(f"user_{self.username}_formulae.json", "w") as formulae:
-                    f[formula_name] = formula
-                    json.dump(f, formulae)
+                with open(f"user_{self.username}_formulae.json", "w") as file:
+                    self.formulae[formula_name] = formula
+                    json.dump(self.formulae, file)
             
-            # formula calculator
+            ## formula evaluator - check the formula and print its value
             else:
                 for i in range(0, len(formula), 2):
                     var = formula[i].split(":")
@@ -153,3 +293,6 @@ class Account:
                 for i in formula:
                     formula_str += i
                 print(eval(formula_str))
+
+checks = Account()
+checks.add_or_sub_formula()
