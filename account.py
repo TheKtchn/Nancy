@@ -16,14 +16,17 @@ class Account:
         """Sorts out the wallet information into wallet information and wallet dataframes"""
         
         # retrieves wallet and sub-wallet names
+        wallet_list = list(self.data.index.values)
+
         wllt_names = {}
-        for wllt, s_wllt in list(self.data.index.values):
+        for wllt, s_wllt in wallet_list:
             wllt_names.setdefault(wllt, []).append(s_wllt)
 
         # stores each wallet with its sub-wallets as its own dataframe for easy access
         wallet_info = {wllt_name: self.data.loc[wllt_name] for wllt_name in list(wllt_names.keys())}
 
-        return (wllt_names, wallet_info)
+
+        return (wllt_names, wallet_info, wallet_list)
 
     def _wallet_parser(self, wallet_info):
         wllt_info = [[], []]
@@ -104,7 +107,7 @@ class Account:
     def add_wallet(self):
         """Manages the creation of wallet and sub-wallets and additions to existing wallets."""
 
-        wllt_names, wallet_info = self._wallet_manager()
+        wllt_names, wallet_info, _ = self._wallet_manager()
 
         while True:
             wallet_name = input("Enter the name of the wallet(q to end): ").lower().replace(" ", "_")
@@ -155,7 +158,7 @@ class Account:
     def remove_wallet(self):
         """Manages the deletion of wallets and/or sub-wallets"""
 
-        wllt_names, wallet_info = self._wallet_manager()
+        wllt_names, wallet_info, _ = self._wallet_manager()
 
         print()
         pprint.pp(wllt_names)
@@ -191,7 +194,7 @@ class Account:
     def wallet_transfer(self):
         """Ensure seamless transfer between wallets themselves and from other sources"""
 
-        wllt_names, _ = self._wallet_manager()
+        wllt_names, _, _ = self._wallet_manager()
 
         print()
         pprint.pp(wllt_names)
@@ -233,11 +236,7 @@ class Account:
             # formula creator
             except KeyError:
                 print("Formula doesn't exist. Creating a new one.\n")
-                # wallet names getter
-                wllts = list(self.data.index.values)
-                formula_variables = {}
-                for wllt, s_wllt in wllts:
-                    formula_variables.setdefault(wllt, []).append(s_wllt)
+                formula_variables, _, wllts  = self._wallet_manager()
 
                 print("wallet: [sub_wallets]")
                 pprint.pp(formula_variables)
