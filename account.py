@@ -269,7 +269,7 @@ class Account:
                     self.formulae[formula_name] = formula
                     json.dump(self.formulae, file)
             
-            ## formula evaluator - check the formula and print its value
+            # formula evaluator - check the formula and print its value
             else:
                 for i in range(0, len(formula), 2):
                     var = formula[i].split(":")
