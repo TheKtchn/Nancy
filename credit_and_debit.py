@@ -1,3 +1,4 @@
+import datetime
 import pandas
 
 class Cr_Dr:
@@ -9,11 +10,11 @@ class Cr_Dr:
         try:
             data = pandas.read_csv(f"user_{self.username}_cr_dr.csv")
         except FileNotFoundError:
-            data = pandas.DataFrame([], columns=["entity", "type", "amount", "expected_due_date", "reminder"])
+            data = pandas.DataFrame([], columns=["entity", "type", "amount", "reminder"])
             data.to_csv(f"user_{self.username}_cr_dr.csv")
             print(f"Created a credit, debit file for user {self.username}!")
         else:
-            print(data)
+            pass
 
         return data
 
@@ -22,6 +23,8 @@ class Cr_Dr:
         for i in list(self.cr_dr.columns)[1:]:
             frames[i] = []
 
+        print(frames)
+
         while True:
             entity = input("Enter entity: ")
             if entity == 'q':
@@ -29,13 +32,11 @@ class Cr_Dr:
                 break
             type_ = input("Is it cr or dr? ")
             amount = float(input("How much: "))
-            expected_due_date = input("When is the money due? ")            
-            reminder = input("When do you want to reminded? ")
-
+            reminder = pandas.Timestamp(f"{input('Enter year: ')}-{input('Enter month: ')}-{input('Enter day: ')}")
+            
             frames["entity"].append(entity)
             frames["type"].append(type_)
             frames["amount"].append(amount)
-            frames["expected_due_date"].append(expected_due_date)
             frames["reminder"].append(reminder)
 
         df = pandas.DataFrame(frames)
