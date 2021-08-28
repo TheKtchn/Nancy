@@ -15,7 +15,7 @@ class List:
             data.to_csv(f"user_{self.username}_{self.listtype}_list.csv")
             print(f"Created a {self.listtype} file for user {self.username}!")
         else:
-            print(data)
+           pass
         return data
 
     def add_list_item(self):
@@ -30,13 +30,12 @@ class List:
                 break
             tags = input("What categories do item(s) fall under? ").split(", ") 
             description = input("Enter the description of the item: ")
-            cost = float(input("Enter the cost of the items: "))
+            cost = float(input("Enter the cost of the item(s): "))
             repeat = input("Is it recurring(True or False)? ")
             repeat_information = []
             if repeat == "True":
-                repeat_information.append(input("How often? "))
-                repeat_information.append(input("Start date: "))
-                repeat_information.append(input("When do you wanna be reminded? "))
+                repeat_information.append(pandas.Timestamp(input("Start date: ")))
+                repeat_information.append(input("How often? "))                
 
             frames["item"].append(item)
             frames["tags"].append(tags)
@@ -63,3 +62,6 @@ class WishList(List):
 username = "victor17"
 wisher = WishList(username)
 budgeter = BudgetList(username)
+
+wisher.add_list_item()
+budgeter.add_list_item()
