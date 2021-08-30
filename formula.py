@@ -40,40 +40,44 @@ class Formula:
 
             formula = input("Enter formula: ").lower().split()
             correct = True
-            if len(formula) / 2 != 0: # check if formula has an odd number of values to avoid unaccounted operations assuming the formula was entered with alternating values then operations
+            if len(formula) / 2 != 0:
                 # split into values and operations
                 formula_vals = formula[::2] 
                 formula_ops = formula[1::2]
                 # variables contains list of possible filters for the named lists
-                variables = {"budg": [],
-                             "wish": [],
-                             "cred": [],
-                             "debt": [],}
-                # wallets contains list of valid entries for wallet and sub_wallet
-                wallets = None
+                variables = None
                 
-                
+                correct = True
+                brckts = 0
                 for i in formula_ops: # confirm if formula has valid operators
                     if i not in ['+', '-', '*', '/', '^', '%', '>', '<', '>=', '<=', '==', '!=', '&', '|', '~']:
-                        pass
-                for i in formula_vals: # value validator
-                    if Formula.num_checker(i): # check if value is a number
-                        pass
-                    elif ':' in i: # otherwise check if value is a wallet:subwallet or variable:filter
-                        a, b = i.split(":")
-                        a = a[1:] if a[0] == '(' else a
-                        b = b[1:] if b[0] == ')' else b
-                        if a[:4] in ['budg', 'wish', 'cred', 'debt']: # variable:filter
-                            if b in variables[a[:4]]:
-                                pass
-                        elif b in wallets[a]: # wallet:subwallet
-                            pass
-                    
+                        correct = False
+                        break
+
+                if correct:
+                    for i in formula_vals: # value validator
+                        if ':' in i: # otherwise check if value is a wallet:subwallet or variable:filter
+                            a, b = i.split(":")
+                            a = a[1:] if a[0] == '(' else a
+                            b = b[1:] if b[0] == ')' else b
+
+                            if a in variables: # variable:filter
+                                if a in ["budg", "cred", "debt", "wish"]:
+                                    if a == "budg":
+                                        correct = False
+                                    elif a in ["cred", "debt"]:
+                                        correct = False
+                                    else:
+                                        correct = False
+                        elif not Formula.num_checker(i):
+                            correct = False
+
+                        if not correct:
+                            break
+                if not correct:
+                    print("Formula has incorrect variable entries.")
             else:
-                pass
-
-
-
+                print("Formula likely can't be calculated because it contains unresolved operations.")
 
     def del_formula(self):
         pprint.pp(self.formulae)
@@ -90,7 +94,6 @@ class Formula:
         formula_name = input("Enter the name of the formula to be evaluated: ")
         # evaluator is first to check for bracket groupings then obtain values for such expression working from outside in
         pass
-
 
 form = Formula("victor17")
 form.add_formula()

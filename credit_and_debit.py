@@ -23,8 +23,6 @@ class Cr_Dr:
         for i in list(self.cr_dr.columns)[1:]:
             frames[i] = []
 
-        print(frames)
-
         while True:
             entity = input("Enter entity: ")
             if entity == 'q':
@@ -32,7 +30,14 @@ class Cr_Dr:
                 break
             type_ = input("Is it cr or dr? ")
             amount = float(input("How much: "))
-            reminder = pandas.Timestamp(f"{input('Enter year: ')}-{input('Enter month: ')}-{input('Enter day: ')}")
+            while True:
+                try:
+                    reminder = pandas.Timestamp(input("Enter date: "))
+                except ValueError:
+                    print("Date entered can't be parsed.\nEnter date in YYYY-MM-DD format.")
+                else:
+                    break
+
             
             frames["entity"].append(entity)
             frames["type"].append(type_)
