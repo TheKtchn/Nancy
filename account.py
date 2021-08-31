@@ -281,3 +281,4 @@ class Account:
                 print(eval(formula_str))
 
 checks = Account()
+checks.add_del_evl_formula()
