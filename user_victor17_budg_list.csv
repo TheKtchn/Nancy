@@ -1,1 +1,5 @@
-,Unnamed: 0,item,tags,description,cost,is_repeated,repeat_info
+,item,tags,description,cost,reminder,repeat_info,skip
+0,haircut,grooming,O,300.0,2021-08-30,5 W,2021-08-30
+1,phone credit,subscription,O,500.0,2021-09-03,1 W,2021-09-03
+3,transport,upkeep,500.0P,500.0,2021-09-06,1 W,2021-09-06
+2,jotter,miscellaneous,O,250.0,2021-10-01,once,2021-10-01

@@ -93,6 +93,7 @@ class Formula:
 
                         if not correct:
                             break
+                # check if brackets are symmetric
                 if not correct:
                     print("Formula has incorrect variable entries.")
             else:
