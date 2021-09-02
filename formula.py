@@ -1,4 +1,5 @@
 import json
+import pandas
 import pprint
 
 class Formula:
@@ -48,7 +49,7 @@ class Formula:
                 variables = None
                 
                 correct = True
-                brckts = 0
+                brckts = ""
                 for i in formula_ops: # confirm if formula has valid operators
                     if i not in ['+', '-', '*', '/', '^', '%', '>', '<', '>=', '<=', '==', '!=', '&', '|', '~']:
                         correct = False
@@ -58,22 +59,41 @@ class Formula:
                     for i in formula_vals: # value validator
                         if ':' in i: # otherwise check if value is a wallet:subwallet or variable:filter
                             a, b = i.split(":")
-                            a = a[1:] if a[0] == '(' else a
-                            b = b[1:] if b[0] == ')' else b
+                            if a[0] == '(':
+                                a = a[1:] 
+                                brckts += '('
+                            if b[0] == ')':
+                                b = b[1:]
+                                brckts += ')'                                
 
                             if a in variables: # variable:filter
-                                if a in ["budg", "cred", "debt", "wish"]:
-                                    if a == "budg":
+                                if a == "budg":
+                                    container = pandas.DataFrame(pandas.read_csv(f"user_{self.username}_budg_list.csv"))
+                                    #determine the type of data it is
+                                    correct = False
+                                elif a == "wish":
+                                    container = pandas.DataFrame(pandas.read_csv(f"user_{self.username}_wish_list.csv"))
+                                    #determine the type of data it is
+                                    correct = False
+                                elif a in ["cred", "debt"]:
+                                    container = pandas.DataFrame(pandas.read_csv(f"user_{self.username}_cr_dr.csv"))
+                                    #determine the type of data it is
+                                    correct = False
+                                else:
+                                    container = pandas.DataFrame(pandas.read_csv(f"user_{self.username}_wallets.csv", index_col=[0, 1]))
+                                    wllt_names = {}
+                                    for wllt, s_wllt in container.index.values:
+                                        wllt_names.setdefault(wllt, []).append(s_wllt)
+                                    if b not in wllt_names[a]:
                                         correct = False
-                                    elif a in ["cred", "debt"]:
-                                        correct = False
-                                    else:
-                                        correct = False
+
+
                         elif not Formula.num_checker(i):
                             correct = False
 
                         if not correct:
                             break
+                # check if brackets are symmetric
                 if not correct:
                     print("Formula has incorrect variable entries.")
             else:
