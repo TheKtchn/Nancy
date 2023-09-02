@@ -1,4 +1,0 @@
-,Unnamed: 0,item,tags,description,cost,is_repeated,repeat_info
-0,,mandarin shirt,['Clothing'],"3 pieces: navy blue, white, floral",12000.0,False,[]
-1,,phone,['Tech'],"a stock android os phone: google pixel, nokia",200000.0,False,[]
-2,,music,['Subscription'],spotify,1200.0,True,"[Timestamp('2022-01-10 00:00:00'), 'every month']"
