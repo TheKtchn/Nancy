@@ -6,7 +6,7 @@
     "Investments": {}
   },
 
-  "Transactions": {},
+  "Transactions": [],
 
   "Futures": { "Credit": {}, "Debt": {} }
 }
