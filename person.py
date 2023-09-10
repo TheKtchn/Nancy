@@ -1,7 +1,7 @@
 import os
 
 
-class Profile:
+class Person:
     def __init__(self, name) -> None:
         self.name = name
         self.database_directory = self.get_database_directory()
