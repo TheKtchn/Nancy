@@ -1,0 +1,348 @@
+[
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "site",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "site",
+        "description": "site",
+        "detail": "site",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "MongoClient",
+        "importPath": "pymongo",
+        "description": "pymongo",
+        "isExtraImport": true,
+        "detail": "pymongo",
+        "documentation": {}
+    },
+    {
+        "label": "Enum",
+        "importPath": "enum",
+        "description": "enum",
+        "isExtraImport": true,
+        "detail": "enum",
+        "documentation": {}
+    },
+    {
+        "label": "bcrypt",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "bcrypt",
+        "description": "bcrypt",
+        "detail": "bcrypt",
+        "documentation": {}
+    },
+    {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
+        "label": "response",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "response",
+        "description": "response",
+        "detail": "response",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "ping",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "bin_dir",
+        "kind": 5,
+        "importPath": ".venv.Scripts.activate_this",
+        "description": ".venv.Scripts.activate_this",
+        "peekOfCode": "bin_dir = os.path.dirname(abs_file)\nbase = bin_dir[: -len(\"Scripts\") - 1]  # strip away the bin part from the __file__, plus the path separator\n# prepend bin to PATH (this file is inside the bin directory)\nos.environ[\"PATH\"] = os.pathsep.join([bin_dir] + os.environ.get(\"PATH\", \"\").split(os.pathsep))\nos.environ[\"VIRTUAL_ENV\"] = base  # virtual env is right above bin directory\n# add the virtual environments libraries to the host python import mechanism\nprev_length = len(sys.path)\nfor lib in \"..\\Lib\\site-packages\".split(os.pathsep):\n    path = os.path.realpath(os.path.join(bin_dir, lib))\n    site.addsitedir(path.decode(\"utf-8\") if \"\" else path)",
+        "detail": ".venv.Scripts.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "base",
+        "kind": 5,
+        "importPath": ".venv.Scripts.activate_this",
+        "description": ".venv.Scripts.activate_this",
+        "peekOfCode": "base = bin_dir[: -len(\"Scripts\") - 1]  # strip away the bin part from the __file__, plus the path separator\n# prepend bin to PATH (this file is inside the bin directory)\nos.environ[\"PATH\"] = os.pathsep.join([bin_dir] + os.environ.get(\"PATH\", \"\").split(os.pathsep))\nos.environ[\"VIRTUAL_ENV\"] = base  # virtual env is right above bin directory\n# add the virtual environments libraries to the host python import mechanism\nprev_length = len(sys.path)\nfor lib in \"..\\Lib\\site-packages\".split(os.pathsep):\n    path = os.path.realpath(os.path.join(bin_dir, lib))\n    site.addsitedir(path.decode(\"utf-8\") if \"\" else path)\nsys.path[:] = sys.path[prev_length:] + sys.path[0:prev_length]",
+        "detail": ".venv.Scripts.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "os.environ[\"PATH\"]",
+        "kind": 5,
+        "importPath": ".venv.Scripts.activate_this",
+        "description": ".venv.Scripts.activate_this",
+        "peekOfCode": "os.environ[\"PATH\"] = os.pathsep.join([bin_dir] + os.environ.get(\"PATH\", \"\").split(os.pathsep))\nos.environ[\"VIRTUAL_ENV\"] = base  # virtual env is right above bin directory\n# add the virtual environments libraries to the host python import mechanism\nprev_length = len(sys.path)\nfor lib in \"..\\Lib\\site-packages\".split(os.pathsep):\n    path = os.path.realpath(os.path.join(bin_dir, lib))\n    site.addsitedir(path.decode(\"utf-8\") if \"\" else path)\nsys.path[:] = sys.path[prev_length:] + sys.path[0:prev_length]\nsys.real_prefix = sys.prefix\nsys.prefix = base",
+        "detail": ".venv.Scripts.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "os.environ[\"VIRTUAL_ENV\"]",
+        "kind": 5,
+        "importPath": ".venv.Scripts.activate_this",
+        "description": ".venv.Scripts.activate_this",
+        "peekOfCode": "os.environ[\"VIRTUAL_ENV\"] = base  # virtual env is right above bin directory\n# add the virtual environments libraries to the host python import mechanism\nprev_length = len(sys.path)\nfor lib in \"..\\Lib\\site-packages\".split(os.pathsep):\n    path = os.path.realpath(os.path.join(bin_dir, lib))\n    site.addsitedir(path.decode(\"utf-8\") if \"\" else path)\nsys.path[:] = sys.path[prev_length:] + sys.path[0:prev_length]\nsys.real_prefix = sys.prefix\nsys.prefix = base",
+        "detail": ".venv.Scripts.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "prev_length",
+        "kind": 5,
+        "importPath": ".venv.Scripts.activate_this",
+        "description": ".venv.Scripts.activate_this",
+        "peekOfCode": "prev_length = len(sys.path)\nfor lib in \"..\\Lib\\site-packages\".split(os.pathsep):\n    path = os.path.realpath(os.path.join(bin_dir, lib))\n    site.addsitedir(path.decode(\"utf-8\") if \"\" else path)\nsys.path[:] = sys.path[prev_length:] + sys.path[0:prev_length]\nsys.real_prefix = sys.prefix\nsys.prefix = base",
+        "detail": ".venv.Scripts.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "sys.path[:]",
+        "kind": 5,
+        "importPath": ".venv.Scripts.activate_this",
+        "description": ".venv.Scripts.activate_this",
+        "peekOfCode": "sys.path[:] = sys.path[prev_length:] + sys.path[0:prev_length]\nsys.real_prefix = sys.prefix\nsys.prefix = base",
+        "detail": ".venv.Scripts.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "sys.real_prefix",
+        "kind": 5,
+        "importPath": ".venv.Scripts.activate_this",
+        "description": ".venv.Scripts.activate_this",
+        "peekOfCode": "sys.real_prefix = sys.prefix\nsys.prefix = base",
+        "detail": ".venv.Scripts.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "sys.prefix",
+        "kind": 5,
+        "importPath": ".venv.Scripts.activate_this",
+        "description": ".venv.Scripts.activate_this",
+        "peekOfCode": "sys.prefix = base",
+        "detail": ".venv.Scripts.activate_this",
+        "documentation": {}
+    },
+    {
+        "label": "ping",
+        "kind": 2,
+        "importPath": "database",
+        "description": "database",
+        "peekOfCode": "def ping():\n    try:\n        client.admin.command(\"ping\")\n        return True\n    except Exception as e:\n        return False",
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "MONGODB_USERNAME",
+        "kind": 5,
+        "importPath": "database",
+        "description": "database",
+        "peekOfCode": "MONGODB_USERNAME = os.getenv(\"MONGODB_USERNAME\")\nMONGODB_PASSWORD = os.getenv(\"MONGODB_PASSWORD\")\nMONGODB_CLUSTER = os.getenv(\"MONGODB_CLUSTER\")\nDB_NAME = \"nancy\"\n# Create a MongoDB client and database instance\nuri = f\"mongodb+srv://{MONGODB_USERNAME}:{MONGODB_PASSWORD}@{MONGODB_CLUSTER}.vfhiusw.mongodb.net/?retryWrites=true&w=majority\"\nclient = MongoClient(uri)\ndb = client[DB_NAME]\n# Function to check the database connection\ndef ping():",
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "MONGODB_PASSWORD",
+        "kind": 5,
+        "importPath": "database",
+        "description": "database",
+        "peekOfCode": "MONGODB_PASSWORD = os.getenv(\"MONGODB_PASSWORD\")\nMONGODB_CLUSTER = os.getenv(\"MONGODB_CLUSTER\")\nDB_NAME = \"nancy\"\n# Create a MongoDB client and database instance\nuri = f\"mongodb+srv://{MONGODB_USERNAME}:{MONGODB_PASSWORD}@{MONGODB_CLUSTER}.vfhiusw.mongodb.net/?retryWrites=true&w=majority\"\nclient = MongoClient(uri)\ndb = client[DB_NAME]\n# Function to check the database connection\ndef ping():\n    try:",
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "MONGODB_CLUSTER",
+        "kind": 5,
+        "importPath": "database",
+        "description": "database",
+        "peekOfCode": "MONGODB_CLUSTER = os.getenv(\"MONGODB_CLUSTER\")\nDB_NAME = \"nancy\"\n# Create a MongoDB client and database instance\nuri = f\"mongodb+srv://{MONGODB_USERNAME}:{MONGODB_PASSWORD}@{MONGODB_CLUSTER}.vfhiusw.mongodb.net/?retryWrites=true&w=majority\"\nclient = MongoClient(uri)\ndb = client[DB_NAME]\n# Function to check the database connection\ndef ping():\n    try:\n        client.admin.command(\"ping\")",
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "DB_NAME",
+        "kind": 5,
+        "importPath": "database",
+        "description": "database",
+        "peekOfCode": "DB_NAME = \"nancy\"\n# Create a MongoDB client and database instance\nuri = f\"mongodb+srv://{MONGODB_USERNAME}:{MONGODB_PASSWORD}@{MONGODB_CLUSTER}.vfhiusw.mongodb.net/?retryWrites=true&w=majority\"\nclient = MongoClient(uri)\ndb = client[DB_NAME]\n# Function to check the database connection\ndef ping():\n    try:\n        client.admin.command(\"ping\")\n        return True",
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "uri",
+        "kind": 5,
+        "importPath": "database",
+        "description": "database",
+        "peekOfCode": "uri = f\"mongodb+srv://{MONGODB_USERNAME}:{MONGODB_PASSWORD}@{MONGODB_CLUSTER}.vfhiusw.mongodb.net/?retryWrites=true&w=majority\"\nclient = MongoClient(uri)\ndb = client[DB_NAME]\n# Function to check the database connection\ndef ping():\n    try:\n        client.admin.command(\"ping\")\n        return True\n    except Exception as e:\n        return False",
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "client",
+        "kind": 5,
+        "importPath": "database",
+        "description": "database",
+        "peekOfCode": "client = MongoClient(uri)\ndb = client[DB_NAME]\n# Function to check the database connection\ndef ping():\n    try:\n        client.admin.command(\"ping\")\n        return True\n    except Exception as e:\n        return False",
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "kind": 5,
+        "importPath": "database",
+        "description": "database",
+        "peekOfCode": "db = client[DB_NAME]\n# Function to check the database connection\ndef ping():\n    try:\n        client.admin.command(\"ping\")\n        return True\n    except Exception as e:\n        return False",
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "ResponseState",
+        "kind": 6,
+        "importPath": "response",
+        "description": "response",
+        "peekOfCode": "class ResponseState(Enum):\n    SUCCESS = \"success\"\n    ERROR = \"error\"\nclass Response:\n    def __init__(self, state, error_message=None, data=None):\n        self.state = state\n        self.error_message = error_message\n        self.data = data",
+        "detail": "response",
+        "documentation": {}
+    },
+    {
+        "label": "Response",
+        "kind": 6,
+        "importPath": "response",
+        "description": "response",
+        "peekOfCode": "class Response:\n    def __init__(self, state, error_message=None, data=None):\n        self.state = state\n        self.error_message = error_message\n        self.data = data",
+        "detail": "response",
+        "documentation": {}
+    },
+    {
+        "label": "UserDatabaseManager",
+        "kind": 6,
+        "importPath": "user",
+        "description": "user",
+        "peekOfCode": "class UserDatabaseManager:\n    PRIMARY_KEY = \"email\"\n    def __init__(self) -> None:\n        self.users = db[\"users\"]\n    def create_user(self, user_data):\n        result = self.users.insert_one(user_data)\n        return result\n    def retrieve_user(self, key):\n        query = {self.PRIMARY_KEY: key}\n        user = self.users.find_one(query)",
+        "detail": "user",
+        "documentation": {}
+    },
+    {
+        "label": "UserData",
+        "kind": 6,
+        "importPath": "user",
+        "description": "user",
+        "peekOfCode": "class UserData:\n    def __init__(self, id, name, email, password) -> None:\n        self.id = id\n        self.name = name\n        self.email = email\n        self.password = password\nclass UserCreateData:\n    def __init__(self, name, email, password) -> None:\n        self.name = name\n        self.email = email",
+        "detail": "user",
+        "documentation": {}
+    },
+    {
+        "label": "UserCreateData",
+        "kind": 6,
+        "importPath": "user",
+        "description": "user",
+        "peekOfCode": "class UserCreateData:\n    def __init__(self, name, email, password) -> None:\n        self.name = name\n        self.email = email\n        self.password = password\nclass UserLoginData:\n    def __init__(self, email, password) -> None:\n        self.email = email\n        self.password = password\nclass UserCreateForm:",
+        "detail": "user",
+        "documentation": {}
+    },
+    {
+        "label": "UserLoginData",
+        "kind": 6,
+        "importPath": "user",
+        "description": "user",
+        "peekOfCode": "class UserLoginData:\n    def __init__(self, email, password) -> None:\n        self.email = email\n        self.password = password\nclass UserCreateForm:\n    def validate_name(name):\n        return bool(re.match(\"^[a-zA-Z]+$\", name))\n    def validate_email(email):\n        # A simple email validation using regular expression\n        email_pattern = re.compile(r\"[^@]+@[^@]+\\.[^@]+\")",
+        "detail": "user",
+        "documentation": {}
+    },
+    {
+        "label": "UserCreateForm",
+        "kind": 6,
+        "importPath": "user",
+        "description": "user",
+        "peekOfCode": "class UserCreateForm:\n    def validate_name(name):\n        return bool(re.match(\"^[a-zA-Z]+$\", name))\n    def validate_email(email):\n        # A simple email validation using regular expression\n        email_pattern = re.compile(r\"[^@]+@[^@]+\\.[^@]+\")\n        return bool(re.match(email_pattern, email))\n    def validate_password(password):\n        # Password should contain at least one letter and one number, with a minimum length of 5 characters\n        return bool(re.match(r\"^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{5,}$\", password))",
+        "detail": "user",
+        "documentation": {}
+    },
+    {
+        "label": "me",
+        "kind": 5,
+        "importPath": "WhatsApp chat resolver",
+        "description": "WhatsApp chat resolver",
+        "peekOfCode": "me = \"Victor Momodu\"\nother = \"Funminiyi Aderemi\"\nchatlist = []\nchatlines = chat.splitlines()\nlast_sender = \"Start\"\nfor c in chatlines:\n    _, chattext = c.split(\"] \")\n    sender, text = chattext.split(\": \")\n    s = other if sender == other else me\n    if s != last_sender:",
+        "detail": "WhatsApp chat resolver",
+        "documentation": {}
+    },
+    {
+        "label": "other",
+        "kind": 5,
+        "importPath": "WhatsApp chat resolver",
+        "description": "WhatsApp chat resolver",
+        "peekOfCode": "other = \"Funminiyi Aderemi\"\nchatlist = []\nchatlines = chat.splitlines()\nlast_sender = \"Start\"\nfor c in chatlines:\n    _, chattext = c.split(\"] \")\n    sender, text = chattext.split(\": \")\n    s = other if sender == other else me\n    if s != last_sender:\n        chatlist.append({s: text})",
+        "detail": "WhatsApp chat resolver",
+        "documentation": {}
+    },
+    {
+        "label": "chatlist",
+        "kind": 5,
+        "importPath": "WhatsApp chat resolver",
+        "description": "WhatsApp chat resolver",
+        "peekOfCode": "chatlist = []\nchatlines = chat.splitlines()\nlast_sender = \"Start\"\nfor c in chatlines:\n    _, chattext = c.split(\"] \")\n    sender, text = chattext.split(\": \")\n    s = other if sender == other else me\n    if s != last_sender:\n        chatlist.append({s: text})\n    else:",
+        "detail": "WhatsApp chat resolver",
+        "documentation": {}
+    },
+    {
+        "label": "chatlines",
+        "kind": 5,
+        "importPath": "WhatsApp chat resolver",
+        "description": "WhatsApp chat resolver",
+        "peekOfCode": "chatlines = chat.splitlines()\nlast_sender = \"Start\"\nfor c in chatlines:\n    _, chattext = c.split(\"] \")\n    sender, text = chattext.split(\": \")\n    s = other if sender == other else me\n    if s != last_sender:\n        chatlist.append({s: text})\n    else:\n        chatlist[-1][s] += f\"\\n{text}\"",
+        "detail": "WhatsApp chat resolver",
+        "documentation": {}
+    },
+    {
+        "label": "last_sender",
+        "kind": 5,
+        "importPath": "WhatsApp chat resolver",
+        "description": "WhatsApp chat resolver",
+        "peekOfCode": "last_sender = \"Start\"\nfor c in chatlines:\n    _, chattext = c.split(\"] \")\n    sender, text = chattext.split(\": \")\n    s = other if sender == other else me\n    if s != last_sender:\n        chatlist.append({s: text})\n    else:\n        chatlist[-1][s] += f\"\\n{text}\"\n    last_sender = s",
+        "detail": "WhatsApp chat resolver",
+        "documentation": {}
+    }
+]

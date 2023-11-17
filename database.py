@@ -15,7 +15,6 @@ uri = f"mongodb+srv://{MONGODB_USERNAME}:{MONGODB_PASSWORD}@{MONGODB_CLUSTER}.vf
 client = MongoClient(uri)
 db = client[DB_NAME]
 
-
 # Function to check the database connection
 def ping():
     try:
