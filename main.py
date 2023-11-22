@@ -2,6 +2,10 @@ from database import ping
 from user import create_user_from_form, login_user_from_form
 from transactions import TransactionsDatabaseManager
 
+COMMANDS = ["signup", "login", "logout", "transact"]
+
+while True:
+    ...
 
 # user_create_form0 = {
 #     "name": "Victor Momodu",

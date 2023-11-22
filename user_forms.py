@@ -27,10 +27,10 @@ def hash_password(password):
     return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt(12))
 
 
-def create_user_from_form(user_create_form: dict):
-    name = user_create_form["name"]
-    email = user_create_form["email"]
-    password = user_create_form["password"]
+def signup_user_from_form(user_signup_form: dict):
+    name = user_signup_form["name"]
+    email = user_signup_form["email"]
+    password = user_signup_form["password"]
 
     response = Response()
     response.data = {}
@@ -60,7 +60,7 @@ def create_user_from_form(user_create_form: dict):
         response.data["email"] = email
         response.data["password"] = hash_password(password)
 
-    user_dbm.create_user(response.data)
+        user_dbm.create_user(response.data)
 
     return response
 
