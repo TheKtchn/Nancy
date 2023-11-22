@@ -4,9 +4,10 @@ from datetime import datetime, date, timedelta
 from response import Response
 from session_data import SessionData
 
+
 def validate_amount(amount):
     try:
-        float(amount)
+        abs(float(amount))
     except ValueError:
         return False
 
@@ -35,7 +36,7 @@ def validate_date(date_string):
         )
 
 
-def add_transaction(session_data: SessionData, transaction_form):
+def add_transaction_form(session_data: SessionData, transaction_form):
     if session_data.is_session:
         description = transaction_form["description"]
         amount = transaction_form["amount"]
@@ -66,18 +67,43 @@ def add_transaction(session_data: SessionData, transaction_form):
             return response
 
         if category == "Expense":
-            if amount >session_data.balance_dbm["amount"]:
+            if amount > session_data.balance_dbm["amount"]:
                 response.error_message += (
                     "Invalid amount. Amount entered is greater than balance.\n"
                 )
                 response.is_error = True
             else:
-                session_data.balance_dbm.update_balance(session_data.balance_dbm["amount"] - amount)
+                session_data.balance_dbm.update_balance(
+                    session_data.balance_dbm["amount"] - amount
+                )
 
         elif category == "Income":
-            session_data.balance_dbm.update_balance(session_data.balance_dbm["amount"] + amount)
+            session_data.balance_dbm.update_balance(
+                session_data.balance_dbm["amount"] + amount
+            )
 
         if not response.is_error:
             session_data.transactions_dbm.create_transaction(transaction_form)
+
+        return response
+
+
+def set_balance_form(session_data: SessionData, balance_form):
+    if session_data.is_session:
+        amount = balance_form["amount"]
+
+        response = Response()
+        response.data = {}
+
+        if not validate_amount(amount):
+            response.error_message += (
+                "Invalid amount. Amount entered is not a number.\n"
+            )
+            response.is_error = True
+
+        if response.is_error:
+            return response
+
+        session_data.balance_dbm.set_balance(amount)
 
         return response
