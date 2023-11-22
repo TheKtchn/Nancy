@@ -43,14 +43,6 @@
         "documentation": {}
     },
     {
-        "label": "Enum",
-        "importPath": "enum",
-        "description": "enum",
-        "isExtraImport": true,
-        "detail": "enum",
-        "documentation": {}
-    },
-    {
         "label": "bcrypt",
         "kind": 6,
         "isExtraImport": true,
@@ -69,11 +61,10 @@
         "documentation": {}
     },
     {
-        "label": "response",
-        "kind": 6,
-        "isExtraImport": true,
+        "label": "Response",
         "importPath": "response",
         "description": "response",
+        "isExtraImport": true,
         "detail": "response",
         "documentation": {}
     },
@@ -238,20 +229,11 @@
         "documentation": {}
     },
     {
-        "label": "ResponseState",
-        "kind": 6,
-        "importPath": "response",
-        "description": "response",
-        "peekOfCode": "class ResponseState(Enum):\n    SUCCESS = \"success\"\n    ERROR = \"error\"\nclass Response:\n    def __init__(self, state, error_message=None, data=None):\n        self.state = state\n        self.error_message = error_message\n        self.data = data",
-        "detail": "response",
-        "documentation": {}
-    },
-    {
         "label": "Response",
         "kind": 6,
         "importPath": "response",
         "description": "response",
-        "peekOfCode": "class Response:\n    def __init__(self, state, error_message=None, data=None):\n        self.state = state\n        self.error_message = error_message\n        self.data = data",
+        "peekOfCode": "class Response:\n    def __init__(self):\n        self.is_error = False\n        self.error_message = \"\"\n        self.data = None",
         "detail": "response",
         "documentation": {}
     },
@@ -265,38 +247,47 @@
         "documentation": {}
     },
     {
-        "label": "UserData",
-        "kind": 6,
+        "label": "validate_name",
+        "kind": 2,
         "importPath": "user",
         "description": "user",
-        "peekOfCode": "class UserData:\n    def __init__(self, id, name, email, password) -> None:\n        self.id = id\n        self.name = name\n        self.email = email\n        self.password = password\nclass UserCreateData:\n    def __init__(self, name, email, password) -> None:\n        self.name = name\n        self.email = email",
+        "peekOfCode": "def validate_name(name):\n    return bool(re.match(\"^[a-zA-Z -]+$\", name))\ndef validate_email(email):\n    # A simple email validation using regular expression\n    email_pattern = re.compile(r\"[^@]+@[^@]+\\.[^@]+\")\n    return bool(re.match(email_pattern, email))\ndef validate_password(password):\n    # Password should contain at least one letter and one number, with a minimum length of 5 characters\n    return bool(re.match(r\"^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{5,}$\", password))\ndef create_user_from_form(user_create_form: dict):",
         "detail": "user",
         "documentation": {}
     },
     {
-        "label": "UserCreateData",
-        "kind": 6,
+        "label": "validate_email",
+        "kind": 2,
         "importPath": "user",
         "description": "user",
-        "peekOfCode": "class UserCreateData:\n    def __init__(self, name, email, password) -> None:\n        self.name = name\n        self.email = email\n        self.password = password\nclass UserLoginData:\n    def __init__(self, email, password) -> None:\n        self.email = email\n        self.password = password\nclass UserCreateForm:",
+        "peekOfCode": "def validate_email(email):\n    # A simple email validation using regular expression\n    email_pattern = re.compile(r\"[^@]+@[^@]+\\.[^@]+\")\n    return bool(re.match(email_pattern, email))\ndef validate_password(password):\n    # Password should contain at least one letter and one number, with a minimum length of 5 characters\n    return bool(re.match(r\"^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{5,}$\", password))\ndef create_user_from_form(user_create_form: dict):\n    name = user_create_form[\"name\"]\n    email = user_create_form[\"email\"]",
         "detail": "user",
         "documentation": {}
     },
     {
-        "label": "UserLoginData",
-        "kind": 6,
+        "label": "validate_password",
+        "kind": 2,
         "importPath": "user",
         "description": "user",
-        "peekOfCode": "class UserLoginData:\n    def __init__(self, email, password) -> None:\n        self.email = email\n        self.password = password\nclass UserCreateForm:\n    def validate_name(name):\n        return bool(re.match(\"^[a-zA-Z]+$\", name))\n    def validate_email(email):\n        # A simple email validation using regular expression\n        email_pattern = re.compile(r\"[^@]+@[^@]+\\.[^@]+\")",
+        "peekOfCode": "def validate_password(password):\n    # Password should contain at least one letter and one number, with a minimum length of 5 characters\n    return bool(re.match(r\"^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{5,}$\", password))\ndef create_user_from_form(user_create_form: dict):\n    name = user_create_form[\"name\"]\n    email = user_create_form[\"email\"]\n    password = user_create_form[\"password\"]\n    response = Response()\n    response.data = {}\n    # Validate user input",
         "detail": "user",
         "documentation": {}
     },
     {
-        "label": "UserCreateForm",
-        "kind": 6,
+        "label": "create_user_from_form",
+        "kind": 2,
         "importPath": "user",
         "description": "user",
-        "peekOfCode": "class UserCreateForm:\n    def validate_name(name):\n        return bool(re.match(\"^[a-zA-Z]+$\", name))\n    def validate_email(email):\n        # A simple email validation using regular expression\n        email_pattern = re.compile(r\"[^@]+@[^@]+\\.[^@]+\")\n        return bool(re.match(email_pattern, email))\n    def validate_password(password):\n        # Password should contain at least one letter and one number, with a minimum length of 5 characters\n        return bool(re.match(r\"^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{5,}$\", password))",
+        "peekOfCode": "def create_user_from_form(user_create_form: dict):\n    name = user_create_form[\"name\"]\n    email = user_create_form[\"email\"]\n    password = user_create_form[\"password\"]\n    response = Response()\n    response.data = {}\n    # Validate user input\n    if not validate_name(name):\n        response.error_message += \"Invalid name. Name should only contain alphabets.\\n\"\n        response.is_error = True",
+        "detail": "user",
+        "documentation": {}
+    },
+    {
+        "label": "login_user_from_from",
+        "kind": 2,
+        "importPath": "user",
+        "description": "user",
+        "peekOfCode": "def login_user_from_from(user_login_form):\n    email = user_login_form[\"email\"]\n    password = user_login_form[\"password\"]\n    hashed_password = bcrypt.hashpw(password.encode(\"utf-8\"))\nif __name__ == \"__main__\":\n    print(f\"Ping: {ping()}\")\n    form0 = {\n        \"name\": \"Victor Momodu\",\n        \"email\": \"vmomodu@email.com\",\n        \"password\": \"dogunsola123\",",
         "detail": "user",
         "documentation": {}
     },
