@@ -66,21 +66,22 @@ def add_transaction_form(session_data: SessionData, transaction_form):
         if response.is_error:
             return response
 
+        amount = abs(float(amount))
+        current_balance = session_data.balance_dbm.get_balance()["amount"]
         if category == "Expense":
-            if amount > session_data.balance_dbm["amount"]:
+            if amount > current_balance:
                 response.error_message += (
                     "Invalid amount. Amount entered is greater than balance.\n"
                 )
                 response.is_error = True
+
             else:
-                session_data.balance_dbm.update_balance(
-                    session_data.balance_dbm["amount"] - amount
-                )
+                new_balance = current_balance - amount
+                session_data.balance_dbm.update_balance(new_balance)
 
         elif category == "Income":
-            session_data.balance_dbm.update_balance(
-                session_data.balance_dbm["amount"] + amount
-            )
+            new_balance = current_balance + amount
+            session_data.balance_dbm.update_balance(new_balance)
 
         if not response.is_error:
             session_data.transactions_dbm.create_transaction(transaction_form)
@@ -104,6 +105,7 @@ def set_balance_form(session_data: SessionData, balance_form):
         if response.is_error:
             return response
 
+        amount = abs(float(amount))
         session_data.balance_dbm.set_balance(amount)
 
         return response

@@ -1,4 +1,4 @@
-import bcrypt
+import hashlib
 import re
 
 from response import Response
@@ -24,7 +24,11 @@ def validate_password(password):
 
 
 def hash_password(password):
-    return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt(12))
+    sha256_hash = hashlib.sha256()
+    sha256_hash.update(password.encode("utf-8"))
+    hashed_password = sha256_hash.hexdigest()
+
+    return hashed_password
 
 
 def signup_user_from_form(user_signup_form: dict):
