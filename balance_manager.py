@@ -1,7 +1,7 @@
 from database import db
 
 
-class BalanceDatabaseManager:
+class BalanceManager:
     def __init__(self, user_email) -> None:
         self.user_email = user_email
         self.balance = db["balance"]
@@ -21,3 +21,16 @@ class BalanceDatabaseManager:
     def get_balance(self):
         query = {"user_email": self.user_email}
         return self.balance.find_one(query)
+
+    def delete_user_balance(self):
+        query = {"user_email": self.user_email}
+        self.balance.delete_one(query)
+
+
+if __name__ == "__main__":
+    balance_mngr = BalanceManager("someemail@email.com")
+    balance_mngr.set_balance(10000)
+    print(balance_mngr.get_balance())
+    balance_mngr.update_balance(20000)
+    print(balance_mngr.get_balance())
+    balance_mngr.delete_user_balance()

@@ -27,45 +27,11 @@
         "documentation": {}
     },
     {
-        "label": "load_dotenv",
-        "importPath": "dotenv",
-        "description": "dotenv",
+        "label": "db",
+        "importPath": "database",
+        "description": "database",
         "isExtraImport": true,
-        "detail": "dotenv",
-        "documentation": {}
-    },
-    {
-        "label": "MongoClient",
-        "importPath": "pymongo",
-        "description": "pymongo",
-        "isExtraImport": true,
-        "detail": "pymongo",
-        "documentation": {}
-    },
-    {
-        "label": "bcrypt",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "bcrypt",
-        "description": "bcrypt",
-        "detail": "bcrypt",
-        "documentation": {}
-    },
-    {
-        "label": "re",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "re",
-        "description": "re",
-        "detail": "re",
-        "documentation": {}
-    },
-    {
-        "label": "Response",
-        "importPath": "response",
-        "description": "response",
-        "isExtraImport": true,
-        "detail": "response",
+        "detail": "database",
         "documentation": {}
     },
     {
@@ -82,6 +48,176 @@
         "description": "database",
         "isExtraImport": true,
         "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "ping",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "db",
+        "importPath": "database",
+        "description": "database",
+        "isExtraImport": true,
+        "detail": "database",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "MongoClient",
+        "importPath": "pymongo",
+        "description": "pymongo",
+        "isExtraImport": true,
+        "detail": "pymongo",
+        "documentation": {}
+    },
+    {
+        "label": "signup_user_from_form",
+        "importPath": "user_forms",
+        "description": "user_forms",
+        "isExtraImport": true,
+        "detail": "user_forms",
+        "documentation": {}
+    },
+    {
+        "label": "login_user_from_form",
+        "importPath": "user_forms",
+        "description": "user_forms",
+        "isExtraImport": true,
+        "detail": "user_forms",
+        "documentation": {}
+    },
+    {
+        "label": "add_transaction_form",
+        "importPath": "transactions_and_balance_forms",
+        "description": "transactions_and_balance_forms",
+        "isExtraImport": true,
+        "detail": "transactions_and_balance_forms",
+        "documentation": {}
+    },
+    {
+        "label": "set_balance_form",
+        "importPath": "transactions_and_balance_forms",
+        "description": "transactions_and_balance_forms",
+        "isExtraImport": true,
+        "detail": "transactions_and_balance_forms",
+        "documentation": {}
+    },
+    {
+        "label": "SessionData",
+        "importPath": "session_data",
+        "description": "session_data",
+        "isExtraImport": true,
+        "detail": "session_data",
+        "documentation": {}
+    },
+    {
+        "label": "SessionData",
+        "importPath": "session_data",
+        "description": "session_data",
+        "isExtraImport": true,
+        "detail": "session_data",
+        "documentation": {}
+    },
+    {
+        "label": "BalanceDatabaseManager",
+        "importPath": "balance",
+        "description": "balance",
+        "isExtraImport": true,
+        "detail": "balance",
+        "documentation": {}
+    },
+    {
+        "label": "TransactionsDatabaseManager",
+        "importPath": "transactions",
+        "description": "transactions",
+        "isExtraImport": true,
+        "detail": "transactions",
+        "documentation": {}
+    },
+    {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "date",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "Response",
+        "importPath": "response",
+        "description": "response",
+        "isExtraImport": true,
+        "detail": "response",
+        "documentation": {}
+    },
+    {
+        "label": "Response",
+        "importPath": "response",
+        "description": "response",
+        "isExtraImport": true,
+        "detail": "response",
+        "documentation": {}
+    },
+    {
+        "label": "hashlib",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "hashlib",
+        "description": "hashlib",
+        "detail": "hashlib",
+        "documentation": {}
+    },
+    {
+        "label": "UserDatabaseManager",
+        "importPath": "user",
+        "description": "user",
+        "isExtraImport": true,
+        "detail": "user",
         "documentation": {}
     },
     {
@@ -157,6 +293,24 @@
         "documentation": {}
     },
     {
+        "label": "BalanceDatabaseManager",
+        "kind": 6,
+        "importPath": "balance",
+        "description": "balance",
+        "peekOfCode": "class BalanceDatabaseManager:\n    def __init__(self, user_email) -> None:\n        self.user_email = user_email\n        self.balance = db[\"balance\"]\n    def set_balance(self, amount):\n        result = self.balance.insert_one(\n            {\"user_email\": self.user_email, \"amount\": amount}\n        )\n        return result\n    def update_balance(self, amount):",
+        "detail": "balance",
+        "documentation": {}
+    },
+    {
+        "label": "BudgetsDatabaseManager",
+        "kind": 6,
+        "importPath": "budgets",
+        "description": "budgets",
+        "peekOfCode": "class BudgetsDatabaseManager:\n    PRIMARY_KEY = \"item\"\n    def __init__(self, user_email) -> None:\n        self.user_id = user_email\n        self.budgets = db[\"budgets\"][user_email]\n    def create_budget(self, transaction_data):\n        result = self.budgets.insert_one(transaction_data)\n        return result\n    def retrieve_budgets(self):\n        return self.budgets",
+        "detail": "budgets",
+        "documentation": {}
+    },
+    {
         "label": "ping",
         "kind": 2,
         "importPath": "database",
@@ -229,12 +383,84 @@
         "documentation": {}
     },
     {
+        "label": "COMMANDS",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "COMMANDS = [\"signup\", \"login\", \"logout\", \"transact\", \"quit\"]\ncurrent_session_data = SessionData()\nprint(\"Nancy has been started.\")\nwhile True:\n    command = input(\"Enter command: \")\n    if command == \"signup\":\n        print(\"\\nSIGNUP\")\n        user_signup_form = {}\n        user_signup_form[\"name\"] = input(\"Enter name: \")\n        user_signup_form[\"email\"] = input(\"Enter email: \")",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "current_session_data",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "current_session_data = SessionData()\nprint(\"Nancy has been started.\")\nwhile True:\n    command = input(\"Enter command: \")\n    if command == \"signup\":\n        print(\"\\nSIGNUP\")\n        user_signup_form = {}\n        user_signup_form[\"name\"] = input(\"Enter name: \")\n        user_signup_form[\"email\"] = input(\"Enter email: \")\n        user_signup_form[\"password\"] = input(\"Enter password: \")",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
         "label": "Response",
         "kind": 6,
         "importPath": "response",
         "description": "response",
         "peekOfCode": "class Response:\n    def __init__(self):\n        self.is_error = False\n        self.error_message = \"\"\n        self.data = None",
         "detail": "response",
+        "documentation": {}
+    },
+    {
+        "label": "SessionData",
+        "kind": 6,
+        "importPath": "session_data",
+        "description": "session_data",
+        "peekOfCode": "class SessionData:\n    def __init__(self) -> None:\n        self.is_session = False\n        self.transactions_dbm = None\n        self.balance_dbm = None\n    def start_session_data(self, user_email):\n        self.is_session = True\n        self.transactions_dbm = TransactionsDatabaseManager(user_email)\n        self.balance_dbm = BalanceDatabaseManager(user_email)\n    def stop_session_data(self):",
+        "detail": "session_data",
+        "documentation": {}
+    },
+    {
+        "label": "TransactionsDatabaseManager",
+        "kind": 6,
+        "importPath": "transactions",
+        "description": "transactions",
+        "peekOfCode": "class TransactionsDatabaseManager:\n    def __init__(self, user_email) -> None:\n        self.user_id = user_email\n        self.transactions = db[\"transactions\"][user_email]\n    def create_transaction(self, transaction_data):\n        result = self.transactions.insert_one(transaction_data)\n        return result\n    def retrieve_transactions(self):\n        return self.transactions",
+        "detail": "transactions",
+        "documentation": {}
+    },
+    {
+        "label": "validate_amount",
+        "kind": 2,
+        "importPath": "transactions_and_balance_forms",
+        "description": "transactions_and_balance_forms",
+        "peekOfCode": "def validate_amount(amount):\n    try:\n        abs(float(amount))\n    except ValueError:\n        return False\n    return True\ndef validate_date(date_string):\n    pattern = re.compile(r\"^\\d{2}-\\d{2}-\\d{4}$\")\n    if not pattern.match(date_string):\n        return False, \"Invalid date format. Please use dd-mm-yyyy.\\n\"",
+        "detail": "transactions_and_balance_forms",
+        "documentation": {}
+    },
+    {
+        "label": "validate_date",
+        "kind": 2,
+        "importPath": "transactions_and_balance_forms",
+        "description": "transactions_and_balance_forms",
+        "peekOfCode": "def validate_date(date_string):\n    pattern = re.compile(r\"^\\d{2}-\\d{2}-\\d{4}$\")\n    if not pattern.match(date_string):\n        return False, \"Invalid date format. Please use dd-mm-yyyy.\\n\"\n    try:\n        parsed_date = datetime.strptime(date_string, \"%d-%m-%Y\").date()\n    except ValueError:\n        return False, \"Invalid date. Please enter a valid date.\\n\"\n    today = date.today()\n    lower_bound = today - timedelta(days=3 * 30)",
+        "detail": "transactions_and_balance_forms",
+        "documentation": {}
+    },
+    {
+        "label": "add_transaction_form",
+        "kind": 2,
+        "importPath": "transactions_and_balance_forms",
+        "description": "transactions_and_balance_forms",
+        "peekOfCode": "def add_transaction_form(session_data: SessionData, transaction_form):\n    if session_data.is_session:\n        description = transaction_form[\"description\"]\n        amount = transaction_form[\"amount\"]\n        category = transaction_form[\"category\"]\n        date = transaction_form[\"date\"]\n        response = Response()\n        response.data = {}\n        if not description:\n            response.error_message += (",
+        "detail": "transactions_and_balance_forms",
+        "documentation": {}
+    },
+    {
+        "label": "set_balance_form",
+        "kind": 2,
+        "importPath": "transactions_and_balance_forms",
+        "description": "transactions_and_balance_forms",
+        "peekOfCode": "def set_balance_form(session_data: SessionData, balance_form):\n    if session_data.is_session:\n        amount = balance_form[\"amount\"]\n        response = Response()\n        response.data = {}\n        if not validate_amount(amount):\n            response.error_message += (\n                \"Invalid amount. Amount entered is not a number.\\n\"\n            )\n            response.is_error = True",
+        "detail": "transactions_and_balance_forms",
         "documentation": {}
     },
     {
@@ -249,46 +475,64 @@
     {
         "label": "validate_name",
         "kind": 2,
-        "importPath": "user",
-        "description": "user",
-        "peekOfCode": "def validate_name(name):\n    return bool(re.match(\"^[a-zA-Z -]+$\", name))\ndef validate_email(email):\n    # A simple email validation using regular expression\n    email_pattern = re.compile(r\"[^@]+@[^@]+\\.[^@]+\")\n    return bool(re.match(email_pattern, email))\ndef validate_password(password):\n    # Password should contain at least one letter and one number, with a minimum length of 5 characters\n    return bool(re.match(r\"^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{5,}$\", password))\ndef create_user_from_form(user_create_form: dict):",
-        "detail": "user",
+        "importPath": "user_forms",
+        "description": "user_forms",
+        "peekOfCode": "def validate_name(name):\n    return bool(re.match(\"^[a-zA-Z -]+$\", name))\ndef validate_email(email):\n    # A simple email validation using regular expression\n    email_pattern = re.compile(r\"[^@]+@[^@]+\\.[^@]+\")\n    return bool(re.match(email_pattern, email))\ndef validate_password(password):\n    # Password should contain at least one letter and one number, with a minimum length of 5 characters\n    return bool(re.match(r\"^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{5,}$\", password))\ndef hash_password(password):",
+        "detail": "user_forms",
         "documentation": {}
     },
     {
         "label": "validate_email",
         "kind": 2,
-        "importPath": "user",
-        "description": "user",
-        "peekOfCode": "def validate_email(email):\n    # A simple email validation using regular expression\n    email_pattern = re.compile(r\"[^@]+@[^@]+\\.[^@]+\")\n    return bool(re.match(email_pattern, email))\ndef validate_password(password):\n    # Password should contain at least one letter and one number, with a minimum length of 5 characters\n    return bool(re.match(r\"^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{5,}$\", password))\ndef create_user_from_form(user_create_form: dict):\n    name = user_create_form[\"name\"]\n    email = user_create_form[\"email\"]",
-        "detail": "user",
+        "importPath": "user_forms",
+        "description": "user_forms",
+        "peekOfCode": "def validate_email(email):\n    # A simple email validation using regular expression\n    email_pattern = re.compile(r\"[^@]+@[^@]+\\.[^@]+\")\n    return bool(re.match(email_pattern, email))\ndef validate_password(password):\n    # Password should contain at least one letter and one number, with a minimum length of 5 characters\n    return bool(re.match(r\"^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{5,}$\", password))\ndef hash_password(password):\n    sha256_hash = hashlib.sha256()\n    sha256_hash.update(password.encode(\"utf-8\"))",
+        "detail": "user_forms",
         "documentation": {}
     },
     {
         "label": "validate_password",
         "kind": 2,
-        "importPath": "user",
-        "description": "user",
-        "peekOfCode": "def validate_password(password):\n    # Password should contain at least one letter and one number, with a minimum length of 5 characters\n    return bool(re.match(r\"^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{5,}$\", password))\ndef create_user_from_form(user_create_form: dict):\n    name = user_create_form[\"name\"]\n    email = user_create_form[\"email\"]\n    password = user_create_form[\"password\"]\n    response = Response()\n    response.data = {}\n    # Validate user input",
-        "detail": "user",
+        "importPath": "user_forms",
+        "description": "user_forms",
+        "peekOfCode": "def validate_password(password):\n    # Password should contain at least one letter and one number, with a minimum length of 5 characters\n    return bool(re.match(r\"^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{5,}$\", password))\ndef hash_password(password):\n    sha256_hash = hashlib.sha256()\n    sha256_hash.update(password.encode(\"utf-8\"))\n    hashed_password = sha256_hash.hexdigest()\n    return hashed_password\ndef signup_user_from_form(user_signup_form: dict):\n    name = user_signup_form[\"name\"]",
+        "detail": "user_forms",
         "documentation": {}
     },
     {
-        "label": "create_user_from_form",
+        "label": "hash_password",
         "kind": 2,
-        "importPath": "user",
-        "description": "user",
-        "peekOfCode": "def create_user_from_form(user_create_form: dict):\n    name = user_create_form[\"name\"]\n    email = user_create_form[\"email\"]\n    password = user_create_form[\"password\"]\n    response = Response()\n    response.data = {}\n    # Validate user input\n    if not validate_name(name):\n        response.error_message += \"Invalid name. Name should only contain alphabets.\\n\"\n        response.is_error = True",
-        "detail": "user",
+        "importPath": "user_forms",
+        "description": "user_forms",
+        "peekOfCode": "def hash_password(password):\n    sha256_hash = hashlib.sha256()\n    sha256_hash.update(password.encode(\"utf-8\"))\n    hashed_password = sha256_hash.hexdigest()\n    return hashed_password\ndef signup_user_from_form(user_signup_form: dict):\n    name = user_signup_form[\"name\"]\n    email = user_signup_form[\"email\"]\n    password = user_signup_form[\"password\"]\n    response = Response()",
+        "detail": "user_forms",
         "documentation": {}
     },
     {
-        "label": "login_user_from_from",
+        "label": "signup_user_from_form",
         "kind": 2,
-        "importPath": "user",
-        "description": "user",
-        "peekOfCode": "def login_user_from_from(user_login_form):\n    email = user_login_form[\"email\"]\n    password = user_login_form[\"password\"]\n    hashed_password = bcrypt.hashpw(password.encode(\"utf-8\"))\nif __name__ == \"__main__\":\n    print(f\"Ping: {ping()}\")\n    form0 = {\n        \"name\": \"Victor Momodu\",\n        \"email\": \"vmomodu@email.com\",\n        \"password\": \"dogunsola123\",",
-        "detail": "user",
+        "importPath": "user_forms",
+        "description": "user_forms",
+        "peekOfCode": "def signup_user_from_form(user_signup_form: dict):\n    name = user_signup_form[\"name\"]\n    email = user_signup_form[\"email\"]\n    password = user_signup_form[\"password\"]\n    response = Response()\n    response.data = {}\n    if not validate_name(name):\n        response.error_message += \"Invalid name. Name should only contain alphabets.\\n\"\n        response.is_error = True\n    if not validate_email(email):",
+        "detail": "user_forms",
+        "documentation": {}
+    },
+    {
+        "label": "login_user_from_form",
+        "kind": 2,
+        "importPath": "user_forms",
+        "description": "user_forms",
+        "peekOfCode": "def login_user_from_form(user_login_form):\n    email = user_login_form[\"email\"]\n    password = user_login_form[\"password\"]\n    response = Response()\n    response.data = {}\n    if not validate_email(email):\n        response.error_message += \"Invalid email address.\\n\"\n        response.is_error = True\n    if not validate_password(password):\n        response.error_message += \"Invalid password.\\n\"",
+        "detail": "user_forms",
+        "documentation": {}
+    },
+    {
+        "label": "user_dbm",
+        "kind": 5,
+        "importPath": "user_forms",
+        "description": "user_forms",
+        "peekOfCode": "user_dbm = UserDatabaseManager()\ndef validate_name(name):\n    return bool(re.match(\"^[a-zA-Z -]+$\", name))\ndef validate_email(email):\n    # A simple email validation using regular expression\n    email_pattern = re.compile(r\"[^@]+@[^@]+\\.[^@]+\")\n    return bool(re.match(email_pattern, email))\ndef validate_password(password):\n    # Password should contain at least one letter and one number, with a minimum length of 5 characters\n    return bool(re.match(r\"^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{5,}$\", password))",
+        "detail": "user_forms",
         "documentation": {}
     },
     {
