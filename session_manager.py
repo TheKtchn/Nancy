@@ -15,7 +15,6 @@ class SessionManager:
         self.is_session = True
         self.user_data = user_data
         user_email = user_data["email"]
-
         self.transaction_mngr = TransactionManager(user_email)
         self.balance_mngr = BalanceManager(user_email)
         self.budget_mngr = BudgetManager(user_email)

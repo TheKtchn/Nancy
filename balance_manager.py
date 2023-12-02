@@ -8,7 +8,10 @@ class BalanceManager:
 
     def set_balance(self, amount):
         result = self.balance.insert_one(
-            {"user_email": self.user_email, "amount": amount}
+            {
+                "user_email": self.user_email,
+                "amount": amount,
+            }
         )
         return result
 

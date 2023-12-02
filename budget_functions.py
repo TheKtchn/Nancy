@@ -173,10 +173,10 @@ def update_budget_form(session_mngr: SessionManager, budget_update_form):
 
     return response
 
+
 def update_budget_spent_form(session_mngr: SessionManager, budget_update_spent_form):
     item = budget_update_spent_form["item"]
     spent = budget_update_spent_form["spent"]
-    
 
     response = Response()
 
@@ -227,13 +227,13 @@ def delete_budget_form(session_mngr: SessionManager, item):
         response.message = "No active session is ongoing."
 
         return response
-    
+
     if not item:
         response.message = "Invalid item. Item cannot be empty."
         response.is_error = True
 
         return response
-    
+
     result = session_mngr.budget_mngr.delete_budget(item)
     if result is None:
         response.is_error = True
@@ -242,4 +242,3 @@ def delete_budget_form(session_mngr: SessionManager, item):
         response.message = f"Deleted {item} from budgets."
 
     return response
-
