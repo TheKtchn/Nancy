@@ -101,6 +101,28 @@ def validate_date_not_less(date_string):
         )
 
 
+def validate_date_not_greater(date_string):
+    pattern = re.compile(r"^\d{2}-\d{2}-\d{4}$")
+
+    if not pattern.match(date_string):
+        return False, "Invalid date format. Please use dd-mm-yyyy.\n"
+    try:
+        parsed_date = datetime.strptime(date_string, "%d-%m-%Y").date()
+    except ValueError:
+        return False, "Invalid date. Please enter a valid date.\n"
+
+    today = date.today()
+    upper_bound = today + timedelta(days=3 * 30)
+
+    if today <= parsed_date <= upper_bound:
+        return True, "Valid date."
+    else:
+        return (
+            False,
+            f"Date must be between today and {upper_bound.strftime('%d-%m-%Y')}.\n",
+        )
+
+
 def hash_password(password):
     """
     Hashes a password using SHA-256.
