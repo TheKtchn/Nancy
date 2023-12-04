@@ -55,8 +55,6 @@ class TransactionManager:
         return db.drop_collection(self.transactions)
 
 
-
-
 if __name__ == "__main__":
     transaction_mngr = TransactionManager("someemail@email.com")
     # print("Create transactions:")
@@ -67,6 +65,6 @@ if __name__ == "__main__":
     # print("Transactions:")
     # print(transaction_mngr.retrieve_transactions())
     # print()
-    
+
     print("Delete user transactions:")
     print(transaction_mngr.delete_user_transactions())
