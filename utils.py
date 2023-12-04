@@ -1,5 +1,6 @@
 import hashlib
 import re
+from datetime import datetime, date, timedelta
 
 
 def validate_name(name):
@@ -47,6 +48,57 @@ def validate_password(password):
     """
     # Password should contain at least one letter and one number, with a minimum length of 5 characters
     return bool(re.match(r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,}$", password))
+
+
+def validate_amount(amount):
+    """
+    Validates if the input is a valid numeric amount.
+
+    Args:
+        amount (str): The amount to be validated.
+
+    Returns:
+        bool: True if the amount is a valid numeric value, False otherwise.
+    """
+    try:
+        abs(float(amount))
+    except ValueError:
+        return False
+
+    return True
+
+
+def validate_date_not_less(date_string):
+    """
+    Validates if the input is a valid date string in the format 'dd-mm-yyyy' within a specific range.
+
+    Args:
+        date_string (str): The date string to be validated.
+
+    Returns:
+        tuple: A tuple containing a boolean indicating whether the date is valid, and a message.
+            - If the date is valid, the boolean is True, and the message is "Valid date."
+            - If the date is invalid, the boolean is False, and the message contains details on the error.
+    """
+    pattern = re.compile(r"^\d{2}-\d{2}-\d{4}$")
+
+    if not pattern.match(date_string):
+        return False, "Invalid date format. Please use dd-mm-yyyy.\n"
+    try:
+        parsed_date = datetime.strptime(date_string, "%d-%m-%Y").date()
+    except ValueError:
+        return False, "Invalid date. Please enter a valid date.\n"
+
+    today = date.today()
+    lower_bound = today - timedelta(days=3 * 30)
+
+    if lower_bound <= parsed_date <= today:
+        return True, "Valid date."
+    else:
+        return (
+            False,
+            f"Date must be between {lower_bound.strftime('%d-%m-%Y')} and today.\n",
+        )
 
 
 def hash_password(password):
