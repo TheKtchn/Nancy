@@ -122,7 +122,8 @@ def retrieve_list_of_budgets_view(session_mngr: SessionManager) -> Response:
 
 
 def update_budget_form(
-    session_mngr: SessionManager, budget_update_form: dict
+    session_mngr: SessionManager,
+    budget_update_form: dict,
 ) -> Response:
     """
     Updates a budget item based on the provided budget update form.

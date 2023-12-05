@@ -1,0 +1,4 @@
+- Add password to delete user function.
+- Resolve results from retrieve_list_of_transactions when there are no transactions for a user.
+- Add a password for the set balance form.
+- Make update budget spent activate automatically.

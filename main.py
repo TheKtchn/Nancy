@@ -72,137 +72,162 @@ while True:
         instructions()
 
     elif command == "signup":
-        if ping():
-            print("\n=== SIGNUP FORM ===\n")
-            user_signup_form = {
-                "name": input("Enter name:\n>>> "),
-                "email": input("Enter email:\n>>> "),
-                "password": input(
-                    "Enter password (at least 5 characters, 1 letter and 1 number):\n>>> "
-                ),
-            }
+        print("\n=== SIGNUP FORM ===")
+        user_signup_form = {
+            "name": input("Enter name:\n>>> "),
+            "email": input("Enter email:\n>>> "),
+            "password": input(
+                "Enter password (at least 5 characters, 1 letter and 1 number):\n>>> "
+            ),
+        }
 
-            response: Response = signup_user_form(
-                session_mngr=session_mngr,
-                user_mngr=user_mngr,
-                user_signup_form=user_signup_form,
-            )
-            response.display()
-
-        else:
-            print("Can't signup user due to no internet connection.")
+        response: Response = signup_user_form(
+            session_mngr=session_mngr,
+            user_mngr=user_mngr,
+            user_signup_form=user_signup_form,
+        )
+        response.display()
 
     elif command == "login":
-        if ping():
-            print("\n=== LOGIN FORM ===\n")
-            user_login_form = {
-                "email": input("Enter email:\n>>> "),
-                "password": input(
-                    "Enter password (at least 5 characters, 1 letter and 1 number):\n>>> "
-                ),
-            }
+        print("\n=== LOGIN FORM ===")
+        user_login_form = {
+            "email": input("Enter email:\n>>> "),
+            "password": input(
+                "Enter password (at least 5 characters, 1 letter and 1 number):\n>>> "
+            ),
+        }
 
-            response: Response = login_user_form(
-                session_mngr=session_mngr,
-                user_mngr=user_mngr,
-                user_login_form=user_login_form,
-            )
-            response.display()
-
-        else:
-            print("Can't login user due to no internet connection.\n")
+        response: Response = login_user_form(
+            session_mngr=session_mngr,
+            user_mngr=user_mngr,
+            user_login_form=user_login_form,
+        )
+        response.display()
 
     elif command == "logout":
         response: Response = logout_user_form(session_mngr=session_mngr)
         response.display()
 
     elif command == "update_password":
-        if ping():
-            print("\n=== UPDATE PASSWORD FORM ===\n")
-            user_password_user_form = {
-                "old_password": input("Enter existing password: "),
-                "new_password": input("Enter new password: "),
-            }
+        print("\n=== UPDATE PASSWORD FORM ===")
+        user_password_user_form = {
+            "old_password": input("Enter existing password: "),
+            "new_password": input("Enter new password: "),
+        }
 
-            response: Response = update_password_of_user_form(
-                session_mngr=session_mngr,
-                user_mngr=user_mngr,
-                user_password_update_form=user_password_user_form,
-            )
-            response.display()
-
-        else:
-            print("Cannot update password as there is no internet connection.\n")
+        response: Response = update_password_of_user_form(
+            session_mngr=session_mngr,
+            user_mngr=user_mngr,
+            user_password_update_form=user_password_user_form,
+        )
+        response.display()
 
     elif command == "delete_user":
-        if ping():
-            print("\n=== DELETE USER FORM ===\n")
-            delete_user_form = {"email": input("email: ")}
+        print("\n=== DELETE USER FORM ===")
+        delete_user_form = {"email": input("Enter email: ")}
 
-            response: Response = delete_user_form(
-                session_mngr=session_mngr,
-                user_mngr=user_mngr,
-                user_email_input=delete_user_form["email"],
-            )
-            response.display()
-
-        else:
-            print("Cannot delete user as there is no internet connection.\n")
+        response: Response = delete_user_form(
+            session_mngr=session_mngr,
+            user_mngr=user_mngr,
+            user_email_input=delete_user_form["email"],
+        )
+        response.display()
 
     elif command == "add_transaction":
-        if ping():
-            print("\n=== ADD TRANSACTION FORM ===\n")
-            transaction_form = {
-                "item": input("Enter item: "),
-                "amount": input("Enter amount: "),
-                "category": input("Enter category ('i' for Income, 'e' for Expense): "),
-                "date": input("Enter date (DD-MM-YYYY): "),
-            }
+        print("\n=== ADD TRANSACTION FORM ===")
+        transaction_form = {
+            "item": input("Enter item: "),
+            "amount": input("Enter amount: "),
+            "category": input("Enter category ('i' for Income, 'e' for Expense): "),
+            "date": input("Enter date (DD-MM-YYYY): "),
+        }
 
-            response: Response = add_transaction_form(
-                session_mngr=session_mngr,
-                transaction_form=transaction_form,
-            )
-            response.display()
-
-        else:
-            print("Cannot add transaction as there is no internet connection.")
+        response: Response = add_transaction_form(
+            session_mngr=session_mngr,
+            transaction_form=transaction_form,
+        )
+        response.display()
 
     elif command == "retrieve_transactions":
-        if ping():
-            print("\n=== RETRIEVE TRANSACTION VIEW ===\n")
+        print("\n=== RETRIEVE TRANSACTION VIEW ===")
 
-            response: Response = retrieve_list_of_transactions_view(
-                session_mngr=session_mngr
-            )
-            response.display()
-
-        else:
-            print("Cannot retrieve transactions as there is no internet connection.")
+        response: Response = retrieve_list_of_transactions_view(
+            session_mngr=session_mngr
+        )
+        response.display()
 
     elif command == "set_balance":
-        if ping():
-            print("\n=== SET BALANCE FORM ===\n")
-            balance_form = {"amount": input("Enter balance: ")}
+        print("\n=== SET BALANCE FORM ===")
+        balance_form = {"amount": input("Enter balance: ")}
 
-            response: Response = set_balance_form(
-                session_mngr=session_mngr, amount=balance_form["amount"]
-            )
-            response.display()
-
-        else:
-            print("Cannot set balance as there is no internet connection.")
+        response: Response = set_balance_form(
+            session_mngr=session_mngr, amount=balance_form["amount"]
+        )
+        response.display()
 
     elif command == "get_balance":
-        if ping():
-            print("\n=== GET BALANCE VIEW ===\n")
-            balance_form = {"amount": input("Enter balance: ")}
+        print("\n=== GET BALANCE VIEW ===")
+        balance_form = {"amount": input("Enter balance: ")}
 
-            response: Response = get_balance_view(session_mngr=session_mngr)
-            response.display()
+        response: Response = get_balance_view(session_mngr=session_mngr)
+        response.display()
 
-        else:
-            print("Cannot set balance as there is no internet connection.")
+    elif command == "create_budget":
+        print("\n=== CREATE BUDGET FORM ===")
+        budget_create_form = {
+            "item": input("Enter item: "),
+            "amount": input("Enter amount: "),
+            "due_date": input("Enter due date (DD-MM-YYYY): "),
+        }
+
+        response: Response = create_budget_form(
+            session_mngr=session_mngr,
+            budget_create_form=budget_create_form,
+        )
+        response.display()
+
+    elif command == "retrieve_budgets":
+        print("\n=== RETRIEVE BUDGETS VIEW ===")
+
+        response: Response = retrieve_list_of_budgets_view(session_mngr=session_mngr)
+        response.display()
+
+    elif command == "update_budget":
+        print("\n=== UPDATE BUDGET FORM ===")
+        budget_update_form = {
+            "item": input("Enter item: "),
+            "amount": input("Enter amount: "),
+            "due_date": input("Enter due date (DD-MM-YYYY): "),
+        }
+
+        response: Response = update_budget_form(
+            session_mngr=session_mngr,
+            budget_update_form=budget_update_form,
+        )
+        response.display()
+
+    elif command == "update_budget_spent":
+        print("\n=== UPDATE BUDGET SPENT FORM ===")
+        budget_update_spent_form = {
+            "item": input("Enter item: "),
+            "spent": input("Enter amount spent: "),
+        }
+
+        response: Response = update_budget_spent_form(
+            session_mngr=session_mngr,
+            budget_update_spent_form=budget_update_spent_form,
+        )
+        response.display()
+
+    elif command == "delete_budget":
+        print("\n=== DELETE BUDGET FORM ===")
+        budget_delete_form = {"item": input("Enter item: ")}
+
+        response: Response = delete_budget_form(
+            session_mngr=session_mngr,
+            item=budget_delete_form["item"],
+        )
+        response.display()
 
     else:
         print("Invalid command.")

@@ -1,26 +1,26 @@
 [COMMAND LIST]
 === User Authentication ===
-signup                  To signup a user into a session.
-login                   To login a user into a session.
-logout                  Logout a user from a session.
+- signup                  : To signup a user into a session.
+- login                   : To login a user into a session.
+- logout                  : Logout a user from a session.
 
 === User Settings ===    
-delete_user             Delete user details from database.
-update_password         Update password of user.
+- delete_user             : Delete user details from the database.
+- update_password         : Update the password of a user.
 
 === Transactions and Balance ===
-add_transaction         Adds a transaction for a user.
-retrieve_transactions   Get transactions pertaining to a user.
-set balance             Set a user's balance.
-get_balance             Displays the current balance.
+- add_transaction         : Adds a transaction for a user.
+- retrieve_transactions   : Get transactions pertaining to a user.
+- set_balance             : Set a user's balance.
+- get_balance             : Displays the current balance.
 
 === Budget ===
-create_budget          Create a budgetary item for a user.
-retrieve_budgets       Get budget list for a user.
-delete_budget          Delete a budgetary item for a user.
-update_budget          Updates a budgetary item for a user.
-update_budget_spent    Updates the amount spent on a budgetary item for a user.
+- create_budget           : Create a budgetary item for a user.
+- retrieve_budgets        : Get a list of budgets for a user.
+- delete_budget           : Delete a budgetary item for a user.
+- update_budget           : Updates a budgetary item for a user.
+- update_budget_spent     : Updates the amount spent on a budgetary item for a user.
 
 === Miscellaneous Commands ===
-help                    Show instructions.
-quit                    End program.
+- help                    : Show instructions.
+- quit                    : End the program.
