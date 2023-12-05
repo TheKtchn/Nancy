@@ -43,6 +43,15 @@ is_started = False
 
 while True:
     if not is_started:
+        print(
+            """
+███    ██  █████  ███    ██  ██████ ██    ██ 
+████   ██ ██   ██ ████   ██ ██       ██  ██  
+██ ██  ██ ███████ ██ ██  ██ ██        ████   
+██  ██ ██ ██   ██ ██  ██ ██ ██         ██    
+██   ████ ██   ██ ██   ████  ██████    ██ ██ 
+              """
+        )
         print("=== START ===")
         instructions()
         is_started = True
@@ -78,7 +87,7 @@ while True:
                 user_mngr=user_mngr,
                 user_signup_form=user_signup_form,
             )
-            print(response.message, end="\n")
+            response.display()
 
         else:
             print("Can't signup user due to no internet connection.")
@@ -98,14 +107,14 @@ while True:
                 user_mngr=user_mngr,
                 user_login_form=user_login_form,
             )
-            print(response.message, end="\n")
+            response.display()
 
         else:
-            print("Can't login user due to no internet connection.")
+            print("Can't login user due to no internet connection.\n")
 
     elif command == "logout":
         response: Response = logout_user_form(session_mngr=session_mngr)
-        print(response.message, end="\n")
+        response.display()
 
     elif command == "update_password":
         if ping():
@@ -120,10 +129,10 @@ while True:
                 user_mngr=user_mngr,
                 user_password_update_form=user_password_user_form,
             )
-            print(response.message, end="\n")
+            response.display()
 
         else:
-            print("Cannot update password as there is no internet connection.")
+            print("Cannot update password as there is no internet connection.\n")
 
     elif command == "delete_user":
         if ping():
@@ -135,10 +144,65 @@ while True:
                 user_mngr=user_mngr,
                 user_email_input=delete_user_form["email"],
             )
-            print(response.message, end="\n")
+            response.display()
 
         else:
-            print("Cannot delete user as there is no internet connection.")
+            print("Cannot delete user as there is no internet connection.\n")
+
+    elif command == "add_transaction":
+        if ping():
+            print("\n=== ADD TRANSACTION FORM ===\n")
+            transaction_form = {
+                "item": input("Enter item: "),
+                "amount": input("Enter amount: "),
+                "category": input("Enter category ('i' for Income, 'e' for Expense): "),
+                "date": input("Enter date (DD-MM-YYYY): "),
+            }
+
+            response: Response = add_transaction_form(
+                session_mngr=session_mngr,
+                transaction_form=transaction_form,
+            )
+            response.display()
+
+        else:
+            print("Cannot add transaction as there is no internet connection.")
+
+    elif command == "retrieve_transactions":
+        if ping():
+            print("\n=== RETRIEVE TRANSACTION VIEW ===\n")
+
+            response: Response = retrieve_list_of_transactions_view(
+                session_mngr=session_mngr
+            )
+            response.display()
+
+        else:
+            print("Cannot retrieve transactions as there is no internet connection.")
+
+    elif command == "set_balance":
+        if ping():
+            print("\n=== SET BALANCE FORM ===\n")
+            balance_form = {"amount": input("Enter balance: ")}
+
+            response: Response = set_balance_form(
+                session_mngr=session_mngr, amount=balance_form["amount"]
+            )
+            response.display()
+
+        else:
+            print("Cannot set balance as there is no internet connection.")
+
+    elif command == "get_balance":
+        if ping():
+            print("\n=== GET BALANCE VIEW ===\n")
+            balance_form = {"amount": input("Enter balance: ")}
+
+            response: Response = get_balance_view(session_mngr=session_mngr)
+            response.display()
+
+        else:
+            print("Cannot set balance as there is no internet connection.")
 
     else:
         print("Invalid command.")

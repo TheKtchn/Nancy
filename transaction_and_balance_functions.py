@@ -4,7 +4,8 @@ from utils import validate_amount, validate_date_not_less
 
 
 def add_transaction_form(
-    session_mngr: SessionManager, transaction_form: dict
+    session_mngr: SessionManager,
+    transaction_form: dict,
 ) -> Response:
     """
     Adds a transaction based on the provided transaction form.
@@ -132,9 +133,7 @@ def retrieve_list_of_transactions_view(session_mngr: SessionManager) -> Response
     # Check if transactions exist or could be retrieved
     if retrieve_transactions_result is None:
         response.is_error = True
-        response.message = (
-            "No transactions exist for the user or could not retrieve the list."
-        )
+        response.message = "No transactions exist for the user."
         return response
 
     transactions = ""
@@ -218,6 +217,6 @@ def get_balance_view(session_mngr: SessionManager) -> Response:
         response.is_error = True
         response.message = "User's balance was not available."
     else:
-        response.message = f"User's balance: {get_balance_result['amount']}"
+        response.message = f"Balance: {get_balance_result['amount']}"
 
     return response
