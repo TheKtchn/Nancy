@@ -31,18 +31,22 @@ def add_transaction_form(
 
     # Validate item
     if not item:
-        response.message += "Invalid item. Item cannot be empty.\n"
+        response.message += "Invalid item. Item cannot be empty."
         response.is_error = True
 
     # Validate amount
     if not validate_amount(amount):
-        response.message += "Invalid amount. Amount entered is not a number.\n"
         response.is_error = True
+        if response.message:
+            response.message += "\n"
+        response.message += "Invalid amount. Amount entered is not a number."
 
     # Validate date
     is_valid_date, error_message = validate_date_not_less(date)
     if not is_valid_date:
         response.is_error = True
+        if response.message:
+            response.message += "\n"
         response.message += error_message
 
     if response.is_error:
@@ -168,8 +172,10 @@ def set_balance_form(session_mngr: SessionManager, amount) -> Response:
 
     # Validate the amount
     if not validate_amount(amount):
-        response.message += "Invalid amount. Amount entered is not a number.\n"
+        response.message += "Invalid amount. Amount entered is not a number."
         response.is_error = True
+
+        return response
 
     amount = abs(float(amount))
 

@@ -37,17 +37,23 @@ def signup_user_form(
     # Validate name
     if not validate_name(name):
         response.is_error = True
-        response.message += "Invalid name. Name should only contain alphabets.\n"
+        if response.message:
+            response.message += "\n"
+        response.message += "Invalid name. Name should only contain alphabets."
 
     # Validate email
     if not validate_email(email):
         response.is_error = True
-        response.message += "Invalid email address.\n"
+        if response.message:
+            response.message += "\n"
+        response.message += "Invalid email address."
 
     # Validate password
     if not validate_password(password):
         response.is_error = True
-        response.message += "Invalid password. Password should contain at least one letter and one number, with a minimum length of 5 characters.\n"
+        if response.message:
+            response.message += "\n"
+        response.message += "Invalid password. Password should contain at least one letter and one number, with a minimum length of 5 characters."
 
     if response.is_error:
         return response
@@ -106,12 +112,16 @@ def login_user_form(
     # Validate email
     if not validate_email(email):
         response.is_error = True
-        response.message += "Invalid email address.\n"
+        if response.message:
+            response.message += "\n"
+        response.message += "Invalid email address."
 
     # Validate password
     if not validate_password(password):
         response.is_error = True
-        response.message += "Invalid password.\n"
+        if response.message:
+            response.message += "\n"
+        response.message += "Invalid password."
 
     if response.is_error:
         return response

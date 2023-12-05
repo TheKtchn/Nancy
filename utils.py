@@ -97,7 +97,7 @@ def validate_date_not_less(date_string):
     else:
         return (
             False,
-            f"Date must be between {lower_bound.strftime('%d-%m-%Y')} and today.\n",
+            f"Date must be between {lower_bound.strftime('%d-%m-%Y')} and today.",
         )
 
 
@@ -119,7 +119,7 @@ def validate_date_not_greater(date_string):
     else:
         return (
             False,
-            f"Date must be between today and {upper_bound.strftime('%d-%m-%Y')}.\n",
+            f"Date must be between today and {upper_bound.strftime('%d-%m-%Y')}.",
         )
 
 

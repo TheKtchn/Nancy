@@ -30,18 +30,22 @@ def create_budget_form(
 
     # Validate item
     if not item:
-        response.message += "Invalid item. Item cannot be empty.\n"
+        response.message += "Invalid item. Item cannot be empty."
         response.is_error = True
 
     # Validate amount
     if not validate_amount(amount):
-        response.message += "Invalid amount. Amount entered is not a number.\n"
+        if response.message:
+            response.message += "\n"
+        response.message += "Invalid amount. Amount entered is not a number."
         response.is_error = True
 
     # Validate due date
     is_valid_date, error_message = validate_date_not_greater(due_date)
     if not is_valid_date:
         response.is_error = True
+        if response.message:
+            response.message += "\n"
         response.message += error_message
 
     if response.is_error:
@@ -156,6 +160,8 @@ def update_budget_form(
     is_valid_date, error_message = validate_date_not_greater(due_date)
     if not is_valid_date:
         response.is_error = True
+        if response.message:
+            response.message += "\n"
         response.message += error_message
 
     if response.is_error:
@@ -213,12 +219,14 @@ def update_budget_spent_form(
 
     # Validate item
     if not item:
-        response.message += "Invalid item. Item cannot be empty.\n"
+        response.message += "Invalid item. Item cannot be empty."
         response.is_error = True
 
     # Validate spent amount
     if not validate_amount(spent):
-        response.message += "Invalid amount. Amount entered is not a number.\n"
+        if response.message:
+            response.message += "\n"
+        response.message += "Invalid amount. Amount entered is not a number."
         response.is_error = True
 
     if response.is_error:
