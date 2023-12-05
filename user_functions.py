@@ -129,7 +129,7 @@ def login_user_form(
     if hash_password(password) == retrieve_user_result["password"]:
         user_data = {}
         user_data["name"] = retrieve_user_result["name"]
-        user_data["email"] = retrieve_user_result["user"]
+        user_data["email"] = retrieve_user_result["email"]
         user_data["password"] = retrieve_user_result["password"]
 
         session_mngr.start_session(user_data)
