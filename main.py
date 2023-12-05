@@ -1,4 +1,3 @@
-import pprint
 import time
 
 from budget_functions import (
@@ -6,7 +5,6 @@ from budget_functions import (
     delete_budget_form,
     retrieve_list_of_budgets_view,
     update_budget_form,
-    update_budget_spent_form,
 )
 from database import ping
 from response import Response
@@ -21,6 +19,7 @@ from user_functions import (
     delete_user_form,
     login_user_form,
     logout_user_form,
+    show_user_information_view,
     signup_user_form,
     update_password_of_user_form,
 )
@@ -123,6 +122,11 @@ while True:
             )
             response.display()
 
+        elif command == "show_user":
+            print("\n=== SHOW USER VIEW ===")
+            response: Response = show_user_information_view(session_mngr=session_mngr)
+            response.display()
+
         elif command == "delete_user":
             print("\n=== DELETE USER FORM ===")
             delete_user_form = {"email": input("Enter email: ")}
@@ -172,8 +176,6 @@ while True:
 
         elif command == "get_balance":
             print("\n=== GET BALANCE VIEW ===")
-            balance_form = {"amount": input("Enter balance: ")}
-
             response: Response = get_balance_view(session_mngr=session_mngr)
             response.display()
 

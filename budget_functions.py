@@ -100,7 +100,7 @@ def retrieve_list_of_budgets_view(session_mngr: SessionManager) -> Response:
     retrieve_budgets_result = session_mngr.budget_mngr.retrieve_budgets()
 
     # Check if budgets exist or could be retrieved
-    if retrieve_budgets_result is None:
+    if retrieve_budgets_result:
         response.is_error = True
         response.message = (
             "No budgets exist for the user or could not retrieve the list."

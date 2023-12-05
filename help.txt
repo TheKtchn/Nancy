@@ -3,6 +3,7 @@
 - signup                  : To signup a user into a session.
 - login                   : To login a user into a session.
 - logout                  : Logout a user from a session.
+- show_user               : Show user information.
 
 === User Settings ===    
 - delete_user             : Delete user details from the database.

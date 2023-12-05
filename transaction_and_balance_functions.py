@@ -145,7 +145,6 @@ def retrieve_list_of_transactions_view(session_mngr: SessionManager) -> Response
 
         return response
 
-    transactions = ""
 
     # Format transactions for display
     for transaction in retrieve_transactions_result:
@@ -154,7 +153,7 @@ def retrieve_list_of_transactions_view(session_mngr: SessionManager) -> Response
         category = transaction["category"]
         date = transaction["date"]
 
-        transactions += f"{item} | {amount} | {category} | {date}\n"
+        response.message += f"{item} | {amount} | {category} | {date}\n"
 
     return response
 

@@ -4,4 +4,4 @@ class Response:
         self.message = ""
 
     def display(self):
-        print(f"\n{self.message}\n\n")
+        print(f"{self.message}\n\n")
