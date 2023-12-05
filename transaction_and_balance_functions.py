@@ -86,6 +86,14 @@ def add_transaction_form(
     else:
         response.message = "User's balance has been updated."
 
+    retrieve_budget_result = session_mngr.budget_mngr.retrieve_budget(item)
+
+    if retrieve_budget_result is not None:
+        if item == retrieve_budget_result["item"]:
+            current_budget_spent = retrieve_budget_result["spent"]
+            budget_data = {"spent": current_budget_spent + amount}
+            session_mngr.budget_mngr.update_budget(item, budget_data)
+
     # Create transaction data
     transaction_data = {
         "item": item,
@@ -131,9 +139,10 @@ def retrieve_list_of_transactions_view(session_mngr: SessionManager) -> Response
     retrieve_transactions_result = session_mngr.transaction_mngr.retrieve_transactions()
 
     # Check if transactions exist or could be retrieved
-    if retrieve_transactions_result is None:
+    if not retrieve_transactions_result:
         response.is_error = True
         response.message = "No transactions exist for the user."
+
         return response
 
     transactions = ""
@@ -150,7 +159,10 @@ def retrieve_list_of_transactions_view(session_mngr: SessionManager) -> Response
     return response
 
 
-def set_balance_form(session_mngr: SessionManager, amount) -> Response:
+def set_balance_form(
+    session_mngr: SessionManager,
+    balance_set_form: dict,
+) -> Response:
     """
     Sets the balance for the user associated with the active session.
 
@@ -161,12 +173,22 @@ def set_balance_form(session_mngr: SessionManager, amount) -> Response:
     Returns:
         Response: A response object indicating the result of the balance setting operation.
     """
+    email = balance_set_form["email"]
+    amount = balance_set_form["amount"]
+
     response = Response()
 
     # Check if an active session is ongoing
     if not session_mngr.is_session:
         response.is_error = True
         response.message = "No active session is ongoing."
+        return response
+
+    # Check if the provided email matches the current session email
+    if email != session_mngr.user_data["email"]:
+        response.is_error = True
+        response.message = "User email input does not match current session email."
+
         return response
 
     # Validate the amount

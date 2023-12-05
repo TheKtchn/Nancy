@@ -4,7 +4,8 @@ from utils import validate_amount, validate_date_not_greater
 
 
 def create_budget_form(
-    session_mngr: SessionManager, budget_create_form: dict
+    session_mngr: SessionManager,
+    budget_create_form: dict,
 ) -> Response:
     """
     Creates a budget item based on the provided budget creation form.
@@ -190,71 +191,6 @@ def update_budget_form(
         response.message = "Budget item could not be updated."
     else:
         response.message = "Item has been updated."
-
-    return response
-
-
-def update_budget_spent_form(
-    session_mngr: SessionManager, budget_update_spent_form: dict
-) -> Response:
-    """
-    Updates the amount spent on a budget item based on the provided update spent form.
-
-    Args:
-        session_mngr (SessionManager): The session manager instance.
-        budget_update_spent_form (dict): The budget update spent form containing the item and spent amount.
-
-    Returns:
-        Response: A response object indicating the result of the budget item spent update.
-    """
-    item = budget_update_spent_form["item"]
-    spent = budget_update_spent_form["spent"]
-
-    response = Response()
-
-    # Check if an active session is ongoing
-    if not session_mngr.is_session:
-        response.is_error = True
-        response.message = "No active session is ongoing."
-        return response
-
-    # Validate item
-    if not item:
-        response.message += "Invalid item. Item cannot be empty."
-        response.is_error = True
-
-    # Validate spent amount
-    if not validate_amount(spent):
-        if response.message:
-            response.message += "\n"
-        response.message += "Invalid amount. Amount entered is not a number."
-        response.is_error = True
-
-    if response.is_error:
-        return response
-
-    spent = abs(float(spent))
-
-    # Retrieve the budget item
-    retrieve_budget_result = session_mngr.budget_mngr.retrieve_budget(item)
-
-    # Check if the budget item exists
-    if not retrieve_budget_result:
-        response.is_error = True
-        response.message = "Item does not exist."
-        return response
-
-    # Prepare updated budget data with spent amount
-    budget_data = {"spent": spent}
-
-    # Update the budget item spent amount
-    update_budget_result = session_mngr.budget_mngr.update_budget(item, budget_data)
-
-    if update_budget_result is None:
-        response.is_error = True
-        response.message = "Budget item spent could not be updated."
-    else:
-        response.message = "Amount spent on item has been updated."
 
     return response
 

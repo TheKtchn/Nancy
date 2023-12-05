@@ -252,7 +252,7 @@ def update_password_of_user_form(
 def delete_user_form(
     session_mngr: SessionManager,
     user_mngr: UserManager,
-    user_email_input,
+    user_delete_form: dict,
 ):
     """Deletes a user and associated data using the provided form data.
 
@@ -265,7 +265,8 @@ def delete_user_form(
         Response: The response object indicating the success or failure of the user deletion operation.
     """
 
-    email = user_email_input
+    email = user_delete_form["email"]
+    password = user_delete_form["password"]
     response = Response()
 
     # Check if a session is active
@@ -275,17 +276,17 @@ def delete_user_form(
 
         return response
 
-    # Validate email
-    if not validate_email(email):
-        response.is_error = True
-        response.message = "Invalid email address."
-
-        return response
-
     # Check if the provided email matches the current session email
     if email != session_mngr.user_data["email"]:
         response.is_error = True
         response.message = "User email input does not match current session email."
+
+        return response
+
+    # Check if the provided password matches the current session
+    if hash_password(password) != session_mngr.user_data["password"]:
+        response.is_error = True
+        response.message = "User password input is incorrect."
 
         return response
 

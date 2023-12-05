@@ -158,10 +158,14 @@ while True:
 
     elif command == "set_balance":
         print("\n=== SET BALANCE FORM ===")
-        balance_form = {"amount": input("Enter balance: ")}
+        balance_set_form = {
+            "email": input("Enter email: "),
+            "amount": input("Enter balance: "),
+        }
 
         response: Response = set_balance_form(
-            session_mngr=session_mngr, amount=balance_form["amount"]
+            session_mngr=session_mngr,
+            balance_set_form=balance_set_form,
         )
         response.display()
 
