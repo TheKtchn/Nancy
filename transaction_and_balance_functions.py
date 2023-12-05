@@ -1,6 +1,6 @@
 from response import Response
 from session_manager import SessionManager
-from utils import *
+from utils import validate_amount, validate_date_not_less
 
 
 def add_transaction_form(
