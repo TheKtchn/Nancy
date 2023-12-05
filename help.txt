@@ -19,7 +19,6 @@
 - retrieve_budgets        : Get a list of budgets for a user.
 - delete_budget           : Delete a budgetary item for a user.
 - update_budget           : Updates a budgetary item for a user.
-- update_budget_spent     : Updates the amount spent on a budgetary item for a user.
 
 === Miscellaneous Commands ===
 - help                    : Show instructions.
