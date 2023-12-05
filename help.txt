@@ -1,0 +1,14 @@
+COMMAND LIST
+
+=== User Authentication ===
+signup            To signup a user into a session.
+login             To login a user into a session.
+logout            Logout a user from a session.
+
+=== User Settings ===    
+delete_user       Delete user details from database.
+update_password   Update password of user.
+
+=== Miscellaneous Commands
+help              Show help
+quit              End program
