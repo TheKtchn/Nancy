@@ -310,6 +310,14 @@ def delete_user_form(
         response.is_error = True
         response.message += "Could not delete user budgets."
 
+    # Delete user conversations
+    delete_user_conversations_result = (
+        session_mngr.conversation_mngr.delete_user_conversations()
+    )
+    if delete_user_conversations_result:
+        response.is_error = True
+        response.message += "Could not delete user conversations."
+
     # Stop the session
     session_mngr.stop_session()
 
