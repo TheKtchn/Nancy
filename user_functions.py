@@ -3,9 +3,8 @@ from session_manager import SessionManager
 from user_manager import UserManager
 from utils import hash_password, validate_email, validate_name, validate_password
 
-
 def signup_user_form(
-    session_mngr: SessionManager,
+    # DEBUG # session_mngr: SessionManager, 
     user_mngr: UserManager,
     user_signup_form: dict,
 ) -> Response:
@@ -27,12 +26,14 @@ def signup_user_form(
     response = Response()
 
     # Check if a user is already using the session
-    if session_mngr.is_session:
-        response.is_error = True
-        response.message = (
-            "A user is using this session already.\nLog out to be able to signup"
-        )
-        return response
+    # DEBUG
+    # if session_mngr.is_session:
+    #     response.is_error = True
+    #     response.message = (
+    #         "A user is using this session already.\nLog out to be able to signup"
+    #     )
+    #     return response
+    # DEBUG
 
     # Validate name
     if not validate_name(name):
@@ -71,7 +72,7 @@ def signup_user_form(
     # Create user
     create_user_result = user_mngr.create_user(user_data)
     if create_user_result:
-        session_mngr.start_session(user_data)
+        # DEBUG # session_mngr.start_session(user_data)
         response.message = f"User {user_data['email']} signed up."
     else:
         response.is_error = True

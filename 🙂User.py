@@ -1,12 +1,15 @@
 import os
 
 import streamlit as st
-from dotenv import load_dotenv
 from pymongo import MongoClient
+from response import Response
+from user_functions import signup_user_form_st
 
-load_dotenv()
+DB_NAME = "nancy"
+st.session_state.is_session = False
 
 
+@st.cache
 def initialize_mongodb():
     """
     Function to initialize the MongoDB connection.
@@ -14,21 +17,17 @@ def initialize_mongodb():
     Returns:
         MongoClient: The MongoDB client connected to the specified database.
     """
-    # Retrieve MongoDB credentials and cluster information from environment variables
     MONGODB_USERNAME = st.secrets["MONGODB_USERNAME"]
     MONGODB_PASSWORD = st.secrets["MONGODB_PASSWORD"]
     MONGODB_CLUSTER = st.secrets["MONGODB_CLUSTER"]
 
-    # Create a MongoDB connection URI using the retrieved credentials and cluster information
     uri = f"mongodb+srv://{MONGODB_USERNAME}:{MONGODB_PASSWORD}@{MONGODB_CLUSTER}.vfhiusw.mongodb.net/?retryWrites=true&w=majority"
-
-    # Create a MongoDB client and select the database
     client = MongoClient(uri)
 
-    return client  # Return the client
+    return client
 
 
-def ping(client):
+def ping(client: MongoClient):
     """
     Check the connection to the MongoDB server by pinging the admin database.
 
@@ -54,12 +53,29 @@ def main():
     # Initialize MongoDB connection
     client = initialize_mongodb()
 
-    if st.button("Ping🔌"):
-        connected = ping(client)
-        if connected:
-            st.success("Connected")
+    st.title("User Registration")
+
+    name = st.text_input("Enter your name:", "")
+    email = st.text_input("Enter your email:", "")
+    password = st.text_input("Enter your password:", "", type="password")
+
+    if st.button("Register"):
+        if not st.session_state.is_session:
+            rspnse: Response = signup_user_form_st()
+            if not rspnse.is_error:
+                st.success("User registered.")
+                st.session_state.user_data = {
+                    "name": name,
+                    "email": email,
+                    "password": password,
+                }
+                st.session_state.is_session = True
+                
+            else:
+                st.error(f"Could not register user.\n{rspnse.message}")
+
         else:
-            st.error("Not connected")
+            st.error("User in session.")
 
 
 if __name__ == "__main__":
