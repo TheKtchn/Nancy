@@ -3,9 +3,10 @@ from session_manager import SessionManager
 from user_manager import UserManager
 from utils import hash_password, validate_email, validate_name, validate_password
 
+
 def signup_user_form(
-    # DEBUG # session_mngr: SessionManager, 
-    user_mngr: UserManager,
+    # DEBUG # session_mngr: SessionManager,
+    # DEBUG # user_mngr: UserManager,
     user_signup_form: dict,
 ) -> Response:
     """
@@ -23,6 +24,7 @@ def signup_user_form(
     email = user_signup_form["email"]
     password = user_signup_form["password"]
 
+    user_mngr = UserManager() # DEBUG
     response = Response()
 
     # Check if a user is already using the session
