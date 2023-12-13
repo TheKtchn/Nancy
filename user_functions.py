@@ -3,39 +3,15 @@ from session_manager import SessionManager
 from user_manager import UserManager
 from utils import hash_password, validate_email, validate_name, validate_password
 
+user_mngr = UserManager()
 
-def signup_user_form(
-    # DEBUG # session_mngr: SessionManager,
-    # DEBUG # user_mngr: UserManager,
-    user_signup_form: dict,
-) -> Response:
-    """
-    Sign up a user based on the provided user signup form.
 
-    Args:
-        session_mngr (SessionManager): The session manager instance.
-        user_mngr (UserManager): The user manager instance.
-        user_signup_form (dict): The user signup form containing user data.
-
-    Returns:
-        Response: A response object indicating the result of the signup operation.
-    """
+def signup_user_form(user_signup_form: dict) -> Response:
     name = user_signup_form["name"]
     email = user_signup_form["email"]
     password = user_signup_form["password"]
 
-    user_mngr = UserManager() # DEBUG
     response = Response()
-
-    # Check if a user is already using the session
-    # DEBUG
-    # if session_mngr.is_session:
-    #     response.is_error = True
-    #     response.message = (
-    #         "A user is using this session already.\nLog out to be able to signup"
-    #     )
-    #     return response
-    # DEBUG
 
     # Validate name
     if not validate_name(name):
@@ -74,8 +50,8 @@ def signup_user_form(
     # Create user
     create_user_result = user_mngr.create_user(user_data)
     if create_user_result:
-        # DEBUG # session_mngr.start_session(user_data)
         response.message = f"User {user_data['email']} signed up."
+        response.data = user_data
     else:
         response.is_error = True
         response.message = "Could not signup user."
@@ -83,34 +59,11 @@ def signup_user_form(
     return response
 
 
-def login_user_form(
-    session_mngr: SessionManager,
-    user_mngr: UserManager,
-    user_login_form: dict,
-):
-    """Logs in a user using the provided login form data.
-
-    Args:
-        session_mngr (SessionManager): The session manager object.
-        user_mngr (UserManager): The user manager object.
-        user_login_form (dict): The user login form data.
-
-    Returns:
-        Response: The response object indicating the success or failure of the login operation.
-    """
-
+def login_user_form(user_login_form: dict):
     email = user_login_form["email"]
     password = user_login_form["password"]
 
     response = Response()
-
-    # Check if a session is already active
-    if session_mngr.is_session:
-        response.is_error = True
-        response.message += "A user is using this session already.\
-            \nLog out to be able to login."
-
-        return response
 
     # Validate email
     if not validate_email(email):
@@ -134,7 +87,6 @@ def login_user_form(
     if retrieve_user_result is None:
         response.is_error = True
         response.message = "User does not exist."
-        session_mngr.stop_session()
 
         return response
 
@@ -145,8 +97,8 @@ def login_user_form(
         user_data["email"] = retrieve_user_result["email"]
         user_data["password"] = retrieve_user_result["password"]
 
-        session_mngr.start_session(user_data)
         response.message = f"User {user_data['email']} logged in."
+        response.data = user_data
 
     else:
         response.is_error = True

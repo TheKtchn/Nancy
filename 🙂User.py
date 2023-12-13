@@ -2,11 +2,16 @@ import os
 
 import streamlit as st
 from pymongo import MongoClient
+
 from response import Response
-from user_functions import signup_user_form
+from user_functions import login_user_form, signup_user_form
 
 DB_NAME = "nancy"
-st.session_state.is_session = False
+
+if "is_session" not in st.session_state:
+    st.session_state.is_session = False
+if "is_pinging" not in st.session_state:
+    st.session_state.is_pinging = False
 
 
 def initialize_mongodb():
@@ -44,39 +49,49 @@ def ping(client: MongoClient):
 
 
 def main():
-    """
-    Streamlit app to check the connection to a MongoDB database.
-    """
-    st.title("Streamlit MongoDB Client Connection")
-
-    # Initialize MongoDB connection
     client = initialize_mongodb()
+    st.session_state.is_pinging = ping(client=client)
 
-    st.title("User Registration")
-
-    name = st.text_input("Enter your name:", "")
-    email = st.text_input("Enter your email:", "")
-    password = st.text_input("Enter your password:", "", type="password")
-
+    st.title("User Signup")
     user_signup_form = {
-        "name": name,
-        "email": email,
-        "password": password,
+        "name": st.text_input("Enter your name:", ""),
+        "email": st.text_input("Enter your email:", ""),
+        "password": st.text_input("Enter your password:", "", type="password"),
     }
 
-    if st.button("Register"):
+    if st.button("Signup"):
         if not st.session_state.is_session:
             rspnse: Response = signup_user_form(user_signup_form=user_signup_form)
             if not rspnse.is_error:
-                st.success("User registered.")
-                st.session_state.user_data = user_signup_form
+                st.success(rspnse.message)
+                st.session_state.user_data = rspnse.data
                 st.session_state.is_session = True
 
             else:
-                st.error(f"Could not register user.\n{rspnse.message}")
+                st.error(rspnse.message)
 
         else:
-            st.error("User in session.")
+            st.error(rspnse.message)
+
+    st.title("User Login")
+    user_login_form = {
+        "email": st.text_input("Enter your email:", ""),
+        "password": st.text_input("Enter your password:", "", type="password"),
+    }
+
+    if st.button("Login"):
+        if not st.session_state.is_session:
+            rspnse: Response = login_user_form(user_login_form=user_login_form)
+            if not rspnse.is_error:
+                st.success(rspnse.message)
+                st.session_state.user_data = rspnse.data
+                st.session_state.is_session = True
+
+            else:
+                st.error(rspnse.message)
+
+        else:
+            st.error(rspnse.message)
 
 
 if __name__ == "__main__":
