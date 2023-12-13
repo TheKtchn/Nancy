@@ -1,14 +1,10 @@
-import os
-
-from dotenv import load_dotenv
+import streamlit as st
 from pymongo import MongoClient
 
-load_dotenv()
-
 # Retrieve MongoDB credentials and cluster information from environment variables
-MONGODB_USERNAME = os.getenv("MONGODB_USERNAME")
-MONGODB_PASSWORD = os.getenv("MONGODB_PASSWORD")
-MONGODB_CLUSTER = os.getenv("MONGODB_CLUSTER")
+MONGODB_USERNAME = st.secrets["MONGODB_USERNAME"]
+MONGODB_PASSWORD = st.secrets["MONGODB_PASSWORD"]
+MONGODB_CLUSTER = st.secrets["MONGODB_CLUSTER"]
 
 # Set the MongoDB database name
 DB_NAME = "nancy"
