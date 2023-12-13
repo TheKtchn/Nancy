@@ -39,7 +39,7 @@ def login_section():
         "password": st.text_input("Enter password:", "", type="password"),
     }
 
-    if st.button("Login"):
+    if st.button("Signin"):
         if ping():
             if not st.session_state.is_session:
                 rspnse: Response = login_user_form(user_login_form=user_login_form)
@@ -55,12 +55,14 @@ def login_section():
             st.error("Could not connect to database.")
 
 def logout_section():
-    st.write("### Logout")
     if st.button("Logout"):
         if ping():
-            rspnse: Response = logout_user_form()
-            st.session_state.user_data = rspnse.data
-            st.session_state.is_session = False
+            if not st.session_state.is_session:
+                rspnse: Response = logout_user_form()
+                st.session_state.user_data = rspnse.data
+                st.session_state.is_session = False
+            else:
+                st.error("User already logged in.")
         else:
             st.error("Could not connect to database.")
 
