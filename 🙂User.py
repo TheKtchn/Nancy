@@ -10,8 +10,8 @@ DB_NAME = "nancy"
 
 if "is_session" not in st.session_state:
     st.session_state.is_session = False
-if "is_pinging" not in st.session_state:
-    st.session_state.is_pinging = False
+# if "is_pinging" not in st.session_state:
+#     st.session_state.is_pinging = False
 
 
 def initialize_mongodb():
@@ -50,7 +50,7 @@ def ping(client: MongoClient):
 
 def main():
     client = initialize_mongodb()
-    st.session_state.is_pinging = ping(client=client)
+    # st.session_state.is_pinging = ping(client=client)
 
     st.title("User Signup")
     user_signup_form = {
