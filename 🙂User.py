@@ -9,7 +9,6 @@ DB_NAME = "nancy"
 st.session_state.is_session = False
 
 
-@st.cache
 def initialize_mongodb():
     """
     Function to initialize the MongoDB connection.
