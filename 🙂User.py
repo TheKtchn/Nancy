@@ -39,7 +39,7 @@ def login_section():
         "password": st.text_input("Enter password:", "", type="password"),
     }
 
-    if st.button("Signin"):
+    if st.button("Login"):
         if ping():
             if not st.session_state.is_session:
                 rspnse: Response = login_user_form(user_login_form=user_login_form)
