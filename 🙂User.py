@@ -75,8 +75,8 @@ def main():
 
     st.write("### User Login")
     user_login_form = {
-        "email": st.text_input("Enter your email:", ""),
-        "password": st.text_input("Enter your password:", "", type="password"),
+        "email": st.text_input("Enter existing email:", ""),
+        "password": st.text_input("Enter password:", "", type="password"),
     }
 
     if st.button("Login"):
