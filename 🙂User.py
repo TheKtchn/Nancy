@@ -1,6 +1,5 @@
-import time  # Import the time module
-
 import streamlit as st
+import time  # Import the time module
 
 from database import ping
 from response import Response
@@ -43,13 +42,9 @@ def signup_section():
                     st.session_state.user_data = rspnse.data
                     st.session_state.is_session = True
 
-                    user_signup_form = {
-                        "name": st.text_input("Enter your name:", ""),
-                        "email": st.text_input("Enter your email:", ""),
-                        "password": st.text_input(
-                            "Enter your password:", "", type="password"
-                        ),
-                    }
+                    user_signup_form["name"] = ""
+                    user_signup_form["email"] = ""
+                    user_signup_form["password"] = ""
                 else:
                     show_error_message(rspnse.message)
             else:
@@ -74,12 +69,8 @@ def login_section():
                     st.session_state.user_data = rspnse.data
                     st.session_state.is_session = True
 
-                    user_login_form = {
-                        "email": st.text_input("Enter existing email:", ""),
-                        "password": st.text_input(
-                            "Enter password:", "", type="password"
-                        ),
-                    }
+                    user_login_form["email"] = ""
+                    user_login_form["password"] = ""
                 else:
                     show_error_message(rspnse.message)
             else:
