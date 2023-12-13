@@ -52,7 +52,7 @@ def main():
     client = initialize_mongodb()
     # st.session_state.is_pinging = ping(client=client)
 
-    st.title("User Signup")
+    st.write("### User Signup")
     user_signup_form = {
         "name": st.text_input("Enter your name:", ""),
         "email": st.text_input("Enter your email:", ""),
@@ -73,7 +73,7 @@ def main():
         else:
             st.error(rspnse.message)
 
-    st.title("User Login")
+    st.write("### User Login")
     user_login_form = {
         "email": st.text_input("Enter your email:", ""),
         "password": st.text_input("Enter your password:", "", type="password"),
