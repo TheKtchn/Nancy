@@ -1,7 +1,11 @@
 import os
 
 import streamlit as st
+from dotenv import load_dotenv
 from pymongo import MongoClient
+
+load_dotenv()
+
 
 def initialize_mongodb():
     """
@@ -23,6 +27,7 @@ def initialize_mongodb():
 
     return client  # Return the client
 
+
 def ping(client):
     """
     Check the connection to the MongoDB server by pinging the admin database.
@@ -39,6 +44,7 @@ def ping(client):
     except Exception as e:
         return False
 
+
 def main():
     """
     Streamlit app to check the connection to a MongoDB database.
@@ -54,6 +60,7 @@ def main():
             st.success("Connected")
         else:
             st.error("Not connected")
+
 
 if __name__ == "__main__":
     main()
