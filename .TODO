@@ -1,0 +1,2 @@
+- Change retrieval of transaction returning no transactions to not be an error.
+- Change response message to return a dictionary.

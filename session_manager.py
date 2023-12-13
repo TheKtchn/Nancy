@@ -1,5 +1,6 @@
 from balance_manager import BalanceManager
 from budget_manager import BudgetManager
+from conversation_manager import ConversationManager
 from transaction_manager import TransactionManager
 
 
@@ -26,6 +27,7 @@ class SessionManager:
         self.transaction_mngr = None
         self.balance_mngr = None
         self.budget_mngr = None
+        self.conversation_mngr = None
 
     def start_session(self, user_data):
         """
@@ -45,6 +47,7 @@ class SessionManager:
         self.transaction_mngr = TransactionManager(user_email)
         self.balance_mngr = BalanceManager(user_email)
         self.budget_mngr = BudgetManager(user_email)
+        self.conversation_mngr = ConversationManager(user_email)
 
     def stop_session(self):
         """
@@ -60,3 +63,4 @@ class SessionManager:
         self.transaction_mngr = None
         self.balance_mngr = None
         self.budget_mngr = None
+        self.conversation_mngr = None

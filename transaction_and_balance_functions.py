@@ -145,7 +145,6 @@ def retrieve_list_of_transactions_view(session_mngr: SessionManager) -> Response
 
         return response
 
-
     # Format transactions for display
     for transaction in retrieve_transactions_result:
         item = transaction["item"]

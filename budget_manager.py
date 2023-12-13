@@ -1,4 +1,4 @@
-from database import db, ping
+from database import db
 
 
 class BudgetManager:
@@ -21,7 +21,6 @@ class BudgetManager:
         Returns:
             None
         """
-        self.user_id = user_email
         self.budgets = db["budgets"][user_email]
 
     def create_budget(self, budget_data):
