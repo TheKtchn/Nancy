@@ -15,9 +15,9 @@ def initialize_mongodb():
         MongoClient: The MongoDB client connected to the specified database.
     """
     # Retrieve MongoDB credentials and cluster information from environment variables
-    MONGODB_USERNAME = os.getenv("MONGODB_USERNAME")
-    MONGODB_PASSWORD = os.getenv("MONGODB_PASSWORD")
-    MONGODB_CLUSTER = os.getenv("MONGODB_CLUSTER")
+    MONGODB_USERNAME = st.secrets["MONGODB_USERNAME"]
+    MONGODB_PASSWORD = st.secrets["MONGODB_PASSWORD"]
+    MONGODB_CLUSTER = st.secrets["MONGODB_CLUSTER"]
 
     # Create a MongoDB connection URI using the retrieved credentials and cluster information
     uri = f"mongodb+srv://{MONGODB_USERNAME}:{MONGODB_PASSWORD}@{MONGODB_CLUSTER}.vfhiusw.mongodb.net/?retryWrites=true&w=majority"
