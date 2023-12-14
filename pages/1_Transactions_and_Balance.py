@@ -6,7 +6,7 @@ from response import Response
 from transactions_and_balance_functions import (
     add_transaction,
     get_balance,
-    retrieve_transactions,
+    get_transactions,
     set_balance,
 )
 
@@ -70,13 +70,13 @@ if st.session_state.username:
         cntnr.write(get_balance_response.data)
 
     st.write("### Transactions")
-    retrieve_transactions_response: Response = retrieve_transactions(
+    get_transactions_response: Response = get_transactions(
         username=st.session_state.username
     )
-    if retrieve_transactions_response.is_error:
-        st.error(retrieve_transactions_response.message)
+    if get_transactions_response.is_error:
+        st.error(get_transactions_response.message)
     else:
-        st.dataframe(retrieve_transactions_response.data)
+        st.dataframe(get_transactions_response.data)
 
 
 else:

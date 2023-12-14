@@ -75,7 +75,7 @@ def add_transaction(username, transaction):
     return r
 
 
-def retrieve_transactions(username):
+def get_transactions(username):
     r = Response()
 
     transaction_mngr = TransactionManager(username)
@@ -86,15 +86,14 @@ def retrieve_transactions(username):
         r.message = "No transactions exist for the user."
         return r
 
-    r.message = "Retrieved user transactions."
     r.data = {"Description": [], "Amount": [], "Category": [], "Date": []}
-
     for transaction in retrieve_transactions_result:
         r.data["Description"].append(transaction["description"])
         r.data["Amount"].append(transaction["amount"])
         r.data["Category"].append(transaction["category"])
         r.data["Date"].append(transaction["date"])
 
+    r.message = "Retrieved user transactions."
     return r
 
 
