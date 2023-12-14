@@ -8,6 +8,7 @@ from user_functions import login_user_form, logout_user_form, signup_user_form
 DB_NAME = "nancy"
 from enum import Enum
 
+
 class Pages(Enum):
     HOME = "Home"
     FINANCES = "Finances"
@@ -110,28 +111,27 @@ def logout():
             show_error_message("Could not connect to the database.")
 
 
-
-
 def test():
     if st.button("Test"):
         st.session_state.current_page = Pages.FINANCES
+
 
 def test_page():
     st.write("Here is a test page for you, yh.")
     if st.button("Home"):
         st.session_state.current_page = Pages.HOME
 
+
 def home():
     signup()
     login()
     logout()
     test()
-    
+
+
 if __name__ == "__main__":
     if st.session_state.current_page == Pages.HOME:
         home()
 
     if st.session_state.current_page == Pages.FINANCES:
         test_page()
-
-    
