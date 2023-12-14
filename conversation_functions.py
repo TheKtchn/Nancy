@@ -8,15 +8,15 @@ def add_chat(
 ):
     r = Response()
 
-    if chat:
+    if not chat:
         r.is_error = True
         r.message = "Chat can't be empty."
         return r
 
     conversation_mngr = ConversationManager(username)
-    conversation_id = conversation_mngr.get_conversation_count()
+    conversation_id = conversation_mngr.get_conversation_count() + 1
     create_conversation_result = conversation_mngr.create_conversation(
-        {conversation_id: chat}
+        {str(conversation_id): chat}
     )
 
     if create_conversation_result is None:

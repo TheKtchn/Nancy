@@ -6,7 +6,7 @@ class ConversationManager:
         self.conversations = db["conversations"][username]
 
     def create_conversation(self, query):
-        result = self.insert_one(query)
+        result = self.conversations.insert_one(query)
         return result
 
     def retrieve_conversations(self):
@@ -15,11 +15,11 @@ class ConversationManager:
 
     def update_conversation(self, conversation_id, response):
         query = {"conversation_id": conversation_id}
-        result = self.budgets.update_one(query, {"$set": response})
+        result = self.conversations.update_one(query, {"$set": response})
         return result
 
     def get_conversation_count(self):
-        return self.conversations.count_documents()
+        return len(self.retrieve_conversations())
 
     def delete_user_conversations(self):
         result = db.drop_collection(self.conversations)
