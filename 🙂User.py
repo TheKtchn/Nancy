@@ -110,10 +110,7 @@ def logout():
             show_error_message("Could not connect to the database.")
 
 
-def home():
-    signup()
-    login()
-    logout()
+
 
 def test():
     if st.button("Test"):
@@ -124,7 +121,12 @@ def test_page():
     if st.button("Home"):
         st.session_state.current_page = Pages.HOME
 
-
+def home():
+    signup()
+    login()
+    logout()
+    test()
+    
 if __name__ == "__main__":
     if st.session_state.current_page == Pages.HOME:
         home()
