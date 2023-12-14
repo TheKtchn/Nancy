@@ -6,9 +6,27 @@ from response import Response
 from user_functions import login_user_form, logout_user_form, signup_user_form
 
 DB_NAME = "nancy"
+from enum import Enum
+
+class Pages(Enum):
+    HOME = "Home"
+    FINANCES = "Finances"
+    BUDGET = "Budget"
+    CHAT = "Chat"
+
 
 if "is_session" not in st.session_state:
     st.session_state.is_session = False
+
+if "user_data" not in st.session_state:
+    st.session_state.user_data = {
+        "name": "",
+        "email": "",
+        "password": "",
+    }
+
+if "current_page" not in st.session_state:
+    st.session_state.current_page = Pages.HOME
 
 
 def show_success_message(message, timeout=3):
@@ -25,7 +43,7 @@ def show_error_message(message, timeout=3):
     error_placeholder.empty()
 
 
-def signup_section():
+def signup():
     st.write("### User Signup")
     user_signup_form = {
         "name": st.text_input("Enter your name:", ""),
@@ -53,7 +71,7 @@ def signup_section():
             show_error_message("Could not connect to the database.")
 
 
-def login_section():
+def login():
     st.write("### User Login")
     user_login_form = {
         "email": st.text_input("Enter existing email:", ""),
@@ -79,7 +97,7 @@ def login_section():
             show_error_message("Could not connect to the database.")
 
 
-def logout_section():
+def logout():
     if st.button("Logout"):
         if ping():
             if not st.session_state.is_session:
@@ -92,11 +110,26 @@ def logout_section():
             show_error_message("Could not connect to the database.")
 
 
-def main():
-    signup_section()
-    login_section()
-    logout_section()
+def home():
+    signup()
+    login()
+    logout()
+
+def test():
+    if st.button("Test"):
+        st.session_state.current_page = Pages.FINANCES
+
+def test_page():
+    st.write("Here is a test page for you, yh.")
+    if st.button("Home"):
+        st.session_state.current_page = Pages.HOME
 
 
 if __name__ == "__main__":
-    main()
+    if st.session_state.current_page == Pages.HOME:
+        home()
+
+    if st.session_state.current_page == Pages.FINANCES:
+        test_page()
+
+    
