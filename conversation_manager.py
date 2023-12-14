@@ -2,8 +2,8 @@ from database import db
 
 
 class ConversationManager:
-    def __init__(self, user_email) -> None:
-        self.conversations = db["conversations"][user_email]
+    def __init__(self, username) -> None:
+        self.conversations = db["conversations"][username]
 
     def create_conversation(self, query):
         result = self.insert_one(query)
